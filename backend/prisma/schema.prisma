@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+  timezone = "Asia/Bangkok"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model userTable {
+  id       Int    @id @default(autoincrement())
+  userName String @unique
+  password String
+  name     String
+  surname  String
+  nickName String
+  phone    String
+  role     String
+}
+
+model member {
+  id         Int      @id @default(autoincrement())
+  member_id  String   @unique
+  email      String   @unique
+  password   String
+  phone      String
+  name       String
+  surname    String
+  ip         String
+  memberType String   @default("free")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model contact_me {
+  id        Int      @id @default(autoincrement())
+  company   String
+  name      String
+  email     String
+  phone     String
+  detail    String   @db.LongText() // เปลี่ยนตรงนี้
+  ip        String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model mail_for_send {
+  id        Int      @id @default(autoincrement())
+  email     String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model loginHistory {
+  id         Int      @id @default(autoincrement())
+  userName   String   @unique
+  loginDate  DateTime
+  logoutDate DateTime
+}
+
+model banner {
+  id        Int      @id @default(autoincrement())
+  image     String
+  link      String
+  status    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model company {
+  id            Int      @id @default(autoincrement())
+  company_id    String   @unique
+  member_id     String
+  company_name  String
+  status        Int
+  star          Int
+  description   String   @db.LongText() // เปลี่ยนตรงนี้
+  detail        String
+  keyword       String
+  address       String   @db.LongText() // เปลี่ยนตรงนี้
+  district      String
+  amphoe        String
+  province      String
+  zipcode       String
+  laditude      String
+  longitude     String
+  phone         String
+  mobile        String
+  visited       Int
+  fax           String
+  email         String
+  website       String
+  facebook      String
+  line          String
+  twitter       String
+  instagram     String
+  tiktok        String
+  youtube       String
+  ip            String
+  statusApprove String   @default("wait")
+  approveDate   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model companyImage {
+  id         Int      @id @default(autoincrement())
+  company_id String
+  image      String
+  link       String
+  status     Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model register_log {
+  id         Int      @id @default(autoincrement())
+  company_id String
+  type       String //จ้าง หรือสมัคร รปภ.
+  name       String
+  email      String
+  phone      String
+  detail     String   @db.LongText() // เปลี่ยนตรงนี้
+  ip         String
+  status     String //ติดต่อกลับ
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model contact_log {
+  id        Int      @id @default(autoincrement())
+  company   String
+  name      String
+  email     String
+  phone     String
+  detail    String
+  ip        String   @db.LongText() // เปลี่ยนตรงนี้
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
