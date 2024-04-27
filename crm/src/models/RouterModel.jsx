@@ -7,6 +7,7 @@ import ContactMePage from "../pages/Contact/ContactMePage";
 import MemberPage from "../pages/Member/MemberPage";
 import InterestedCompanyPage from "../pages/Company/InterestedCompanyPage";
 import CompanyPage from "../pages/Company/CompanyPage";
+import MainDetailCompanyPage from "../pages/Company/MainDetailCompanyPage";
 
 export const RouterModel = [
   {
@@ -63,4 +64,11 @@ export const RouterModel = [
     routerPath: "/interestedcompany",
     routerComponent: <InterestedCompanyPage />,
   },
+  {
+    id: 10,
+    routerName: "MainDetailCompany",
+    routerPath: "/company/:company_id",
+    routerComponent: <MainDetailCompanyPage />,
+  },
+  
 ];

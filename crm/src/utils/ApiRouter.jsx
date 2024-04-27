@@ -19,6 +19,17 @@ export const ApiRouter = {
   Member: "/api/v1/member/register/",
   ChangeTypeMember : "/api/v1/member/register/type/",
 
+  //company
+  Company: "/api/v1/company/",
+  CompanyImage: "/api/v1/company/image",
+  CompanyImageComID: "/api/v1/company/imageComID/company/",
+  ChangeStatusCompany: "/api/v1/company/status/",
+  ChangeStartCompany: "/api/v1/company/star/",
+  ChangeHireCompany: "/api/v1/company/hire/",
+
+
+  CompanyLogo : "/api/v1/company/image/logo",
+
   
 
 

@@ -20,7 +20,6 @@ function BannerPage() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await API.get(ApiRouter.Banner);
-
       if (res.data.status === true) {
         setLoading(false);
         if (res.data.data.length === 0) {
@@ -29,6 +28,7 @@ function BannerPage() {
         } else {
           const itemsWithImages = await Promise.all(
             res.data.data.map(async (item) => {
+
               try {
                 const imageRes = await API.post(
                   ApiRouter.BannerImage,
@@ -133,34 +133,6 @@ function BannerPage() {
     } catch (error) {
       console.error(error);
     }
-  };
-
-  const handleSelect = async (id) => {
-    try {
-      let data = {
-        status: 1,
-      };
-      const res = await API.put(ApiRouter.Banner + id, data);
-      if (res.data.status === true) {
-        Swal.fire({
-          title: "เปลี่ยนแปลงสถานะสำเร็จ !",
-          text: "คุณเปลี่ยนแปลงสถานะสำเร็จ",
-          icon: "success",
-          allowOutsideClick: false,
-        });
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-        setIsSubmit(true);
-      } else {
-        Swal.fire({
-          title: "เปลี่ยนแปลงสถานะไม่สำเร็จ !",
-          text: "คุณเปลี่ยนแปลงสถานะไม่สำเร็จ",
-          icon: "error",
-          allowOutsideClick: false,
-        });
-      }
-    } catch (error) {}
   };
 
   const columns = [

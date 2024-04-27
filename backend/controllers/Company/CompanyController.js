@@ -51,9 +51,63 @@ const getCompanyImage = async (req, res) => {
   }
 };
 
+const getImageByCompanyId = async (req, res) => {
+  try {
+    let company_id = req.params.company_id;
+    const result = await prisma.companyImage.findMany({
+      where: {
+        company_id: company_id,
+      },
+    });
+    let imagePathPattern = path.join(
+      __dirname,
+      `../../uploads/company/${result.image}`
+    );
+
+    glob(imagePathPattern, (err, files) => {
+      if (err) {
+        console.log(err);
+        res.status(500).json({ error: err.message });
+        return;
+      }
+
+      if (files.length === 0) {
+        res.status(404).json({ error: "Image not found" });
+        return;
+      }
+      res.sendFile(files[0]);
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: false,
+      message: "Error",
+      error: error.message,
+    });
+  }
+};
+
 const getCompany = async (req, res) => {
   try {
-    const result = await prisma.company.findMany();
+    const result = await prisma.company.findMany({
+      orderBy: [
+        {
+          id: "desc",
+        },
+      ],
+    });
+
+    const getAdress = await prisma.address.findMany();
+    result.map((item) => {
+      getAdress.map((item2) => {
+        if (parseInt(item.district) === parseInt(item2.TambonID)) {
+          item.district = item2.TambonThai;
+          item.amphoe = item2.AmphoeThai;
+          item.province = item2.ProvinceThai;
+        }
+      });
+    });
+
     res.json({
       status: true,
       message: "Success",
@@ -77,6 +131,15 @@ const getCompanyById = async (req, res) => {
         id: id,
       },
     });
+    const getAdress = await prisma.address.findMany();
+    getAdress.map((item) => {
+      if (parseInt(result.district) === parseInt(item.TambonID)) {
+        result.district = item.TambonThai;
+        result.amphoe = item.AmphoeThai;
+        result.province = item.ProvinceThai;
+      }
+    });
+
     res.json({
       status: true,
       message: "Success",
@@ -179,11 +242,170 @@ const delelteCompanyById = async (req, res) => {
     });
   }
 };
+const changeStatusCompany = async (req, res) => {
+  try {
+    let id = parseInt(req.params.id);
+    let status = parseInt(req.body.status);
+    const result = await prisma.company.update({
+      where: {
+        id: id,
+      },
+      data: {
+        status: status,
+      },
+    });
+    res.json({
+      status: true,
+      message: "Success",
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: false,
+      message: "Error",
+      error: error.message,
+    });
+  }
+};
 
+const fixStart = async (req, res) => {
+  try {
+    let id = parseInt(req.params.id);
+    let star = parseInt(req.body.star);
+    const result = await prisma.company.update({
+      where: {
+        id: id,
+      },
+      data: {
+        star: star,
+      },
+    });
+    res.json({
+      status: true,
+      message: "Success",
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: false,
+      message: "Error",
+      error: error.message,
+    });
+  }
+};
+
+const getDataComIDImage = async (req, res) => {
+  try {
+    const company_id = req.params.company_id;
+    const result = await prisma.companyImage.findMany({
+      where: {
+        company_id: company_id,
+      },
+    });
+    result.sort((a, b) => a.id - b.id);
+    result.sort((a, b) => a.order - b.order);
+
+    res.json({
+      status: true,
+      message: "Success",
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: false,
+      message: "Error",
+      error: error.message,
+    });
+  }
+};
+const getDataLogoImage = async (req, res) => {
+  try {
+    const result = await prisma.companyImage.findMany();
+    //sort image by id
+    result.sort((a, b) => a.company_id - b.company_id);
+    result.sort((a, b) => a.id - b.id);
+    result.sort((a, b) => a.order - b.order);
+
+    //remove duplicate by company_id
+    let distinct = [];
+    let distinctCompany = [];
+    for (let i = 0; i < result.length; i++) {
+      if (distinctCompany.indexOf(result[i].company_id) === -1) {
+        distinctCompany.push(result[i].company_id);
+        distinct.push(result[i]);
+      }
+    }
+
+    let datasend = [];
+    const getCompany = await prisma.company.findMany();
+    getCompany.map((item) => {
+      distinct.map((item2) => {
+        if (item.company_id === item2.company_id) {
+          datasend.push({
+            ...item2,
+            ...item,
+          });
+        }
+      });
+    });
+
+    //sort image by id
+    datasend.sort((a, b) => b.id - a.id);
+
+    res.json({
+      status: true,
+      message: "Success",
+      data: datasend,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: false,
+      message: "Error",
+      error: error.message,
+    });
+  }
+};
+
+const changeHire = async (req, res) => {
+  try {
+    let id = parseInt(req.params.id);
+    let hire = parseInt(req.body.hire);
+    const result = await prisma.company.update({
+      where: {
+        id: id,
+      },
+      data: {
+        hire: hire,
+      },
+    });
+    res.json({
+      status: true,
+      message: "Success",
+      data: result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: false,
+      message: "Error",
+      error: error.message,
+    });
+  }
+};
 module.exports = {
   getCompanyImage,
   getCompany,
   getCompanyById,
   createCompany,
   delelteCompanyById,
+  changeStatusCompany,
+  fixStart,
+  getImageByCompanyId,
+  getDataComIDImage,
+  getDataLogoImage,
+  changeHire
 };

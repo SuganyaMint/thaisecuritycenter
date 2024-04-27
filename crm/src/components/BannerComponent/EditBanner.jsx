@@ -73,6 +73,7 @@ function EditBanner(props ) {
     setIsModalOpen(false);
   };
   const [displayedImage, setDisplayedImage] = useState(props.img);
+  console.log(props.img);
   const handlePictureChange = async () => {
     const new_file = event.target.files[0];
 

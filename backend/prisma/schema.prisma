@@ -74,11 +74,11 @@ model company {
   company_id    String   @unique
   member_id     String
   company_name  String
-  status        Int
+  status        Int //0 ไม่แสดง 1 แสดง
   star          Int
   description   String   @db.LongText() // เปลี่ยนตรงนี้
-  detail        String
-  keyword       String
+  detail        String   @db.LongText() // เปลี่ยนตรงนี้
+  keyword       String   @db.LongText() // เปลี่ยนตรงนี้
   address       String   @db.LongText() // เปลี่ยนตรงนี้
   district      String
   amphoe        String
@@ -99,6 +99,7 @@ model company {
   tiktok        String
   youtube       String
   ip            String
+  hire          Int // จ้าง หรือ ฟรี  
   statusApprove String   @default("wait")
   approveDate   String
   createdAt     DateTime @default(now())
@@ -111,6 +112,7 @@ model companyImage {
   image      String
   link       String
   status     Int
+  order      Int
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
@@ -118,6 +120,7 @@ model companyImage {
 model register_log {
   id         Int      @id @default(autoincrement())
   company_id String
+  company    String
   type       String //จ้าง หรือสมัคร รปภ.
   name       String
   email      String
@@ -139,4 +142,19 @@ model contact_log {
   ip        String   @db.LongText() // เปลี่ยนตรงนี้
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model address {
+  id           Int    @id @default(autoincrement())
+  TambonID     String @db.VarChar(255)
+  TambonThai   String @db.VarChar(255)
+  TambonEng    String @db.VarChar(255)
+  AmphoeID     String @db.VarChar(255)
+  AmphoeThai   String @db.VarChar(255)
+  AmphoeEng    String @db.VarChar(255)
+  ProvinceID   String @db.VarChar(255)
+  ProvinceThai String @db.VarChar(255)
+  ProvinceEng  String @db.VarChar(255)
+  Region       String @db.VarChar(255)
+  PostCodeMain String @db.VarChar(255)
 }
