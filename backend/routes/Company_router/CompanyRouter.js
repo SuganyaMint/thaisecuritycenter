@@ -12,7 +12,8 @@ const {
   getImageByCompanyId,
   getDataComIDImage,
   getDataLogoImage,
-  changeHire
+  changeHire,
+  getCompanyClient
 } = require("../../controllers/Company/CompanyController");
 
 router.get("/", getCompany);
@@ -23,6 +24,7 @@ router.post("/image", getCompanyImage);
 router.post("/imageAll/company/:company_id", getImageByCompanyId);
 router.get("/imageComID/company/:company_id", getDataComIDImage);
 router.get("/image/logo", getDataLogoImage);
+router.get("/show/to/client", getCompanyClient);
 
 router.put("/status/:id", changeStatusCompany);
 router.put("/star/:id", fixStart);

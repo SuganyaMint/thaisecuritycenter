@@ -157,4 +157,8 @@ model address {
   ProvinceEng  String @db.VarChar(255)
   Region       String @db.VarChar(255)
   PostCodeMain String @db.VarChar(255)
+  geocode      String @db.VarChar(255)
+  geoName     String @db.VarChar(255)
+  nearBKK     String @db.VarChar(255)
 }
+

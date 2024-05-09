@@ -487,6 +487,16 @@
         }
       }
     },
+    "/api/v1/company/show/to/client": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/company/status/{id}": {
       "put": {
         "description": "",
@@ -891,6 +901,90 @@
         "responses": {
           "default": {
             "description": ""
+          }
+        }
+      }
+    },
+    "/api/v1/address/pronvinces": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/address/amphoe/{ProvinceID}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "ProvinceID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/address/tambon/{AmphoeID}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "AmphoeID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/address/geo/{geocode}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "geocode",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/address/nearbkk": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/address/amphoeinbkk": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }

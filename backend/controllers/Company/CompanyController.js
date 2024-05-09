@@ -104,10 +104,13 @@ const getCompany = async (req, res) => {
           item.district = item2.TambonThai;
           item.amphoe = item2.AmphoeThai;
           item.province = item2.ProvinceThai;
+          item.zipcode = item2.PostCodeMain;
+          item.TambonID = item2.TambonID;
+          item.AmphoeID = item2.AmphoeID;
+          item.ProvinceID = item2.ProvinceID;
         }
       });
     });
-
     res.json({
       status: true,
       message: "Success",
@@ -137,9 +140,12 @@ const getCompanyById = async (req, res) => {
         result.district = item.TambonThai;
         result.amphoe = item.AmphoeThai;
         result.province = item.ProvinceThai;
+        result.zipcode = item.PostCodeMain;
+        result.TambonID = item.TambonID;
+        result.AmphoeID = item.AmphoeID;
+        result.ProvinceID = item.ProvinceID;
       }
     });
-
     res.json({
       status: true,
       message: "Success",
@@ -396,6 +402,74 @@ const changeHire = async (req, res) => {
     });
   }
 };
+
+const getCompanyClient = async (req, res) => {
+  try {
+    const result = await prisma.companyImage.findMany();
+    //sort image by id
+    result.sort((a, b) => a.company_id - b.company_id);
+    result.sort((a, b) => a.id - b.id);
+    result.sort((a, b) => a.order - b.order);
+
+    //remove duplicate by company_id
+    let distinct = [];
+    let distinctCompany = [];
+    for (let i = 0; i < result.length; i++) {
+      if (distinctCompany.indexOf(result[i].company_id) === -1) {
+        distinctCompany.push(result[i].company_id);
+        distinct.push(result[i]);
+      }
+    }
+
+    let datasend = [];
+    const getCompany = await prisma.company.findMany({
+      where: {
+        status: 1,
+      },
+    });
+    getCompany.map((item) => {
+      distinct.map((item2) => {
+        if (item.company_id === item2.company_id) {
+          datasend.push({
+            ...item2,
+            ...item,
+          });
+        }
+      });
+    });
+
+    const address = await prisma.address.findMany();
+
+    datasend.map((item) => {
+      address.map((item2) => {
+        if (parseInt(item.district) === parseInt(item2.TambonID)) {
+          item.fullAddress = `${item.address} ${item2.TambonThai} ${item2.AmphoeThai} ${item2.ProvinceThai} ${item2.PostCodeMain}`;
+        }
+      });
+    });
+
+    //sort image by id
+    datasend.sort((a, b) => b.star - a.star);
+    // console.log(datasend);
+    //เอาเฉพาะ 20 อันดับแรก
+    datasend = datasend.slice(0, 20);
+    console.log(datasend.length);
+
+    res.json({
+      status: true,
+      message: "Success",
+      data: datasend,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: false,
+      message: "Error",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   getCompanyImage,
   getCompany,
@@ -407,5 +481,6 @@ module.exports = {
   getImageByCompanyId,
   getDataComIDImage,
   getDataLogoImage,
-  changeHire
+  changeHire,
+  getCompanyClient,
 };

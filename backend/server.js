@@ -36,6 +36,9 @@ const ContactInterested_route = require("./routes/Contact_route/ContactIntereste
 const LoginMemberRouter = require("./routes/Member/LoginRouter");
 const MemberRouter = require("./routes/Member/RegisterRouter");
 
+//Address
+const AddressRouter = require("./routes/Address_route/Address_router");
+
 dotenv.config();
 
 const app = express();
@@ -89,6 +92,9 @@ app.use("/api/v1/contact_in", ContactInterested_route);
 //member
 app.use("/api/v1/member/login", LoginMemberRouter);
 app.use("/api/v1/member/register", MemberRouter);
+
+//Address
+app.use("/api/v1/address", AddressRouter);
 
 
 app.listen(process.env.PORT, () => {
