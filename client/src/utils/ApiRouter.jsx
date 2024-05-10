@@ -11,6 +11,9 @@ export const ApiRouter = {
   BannerImage: "/api/banner/image",
   UpdateBannerImage: "/api/banner/update/image/",
 
+  SubBanner: "/api/subbanner/",
+  SubBannerImage: "/api/subbanner/image",
+
   //Contact
   ContactMe: "/api/v1/contact/",
   ContactInterested: "/api/v1/contact_in/",

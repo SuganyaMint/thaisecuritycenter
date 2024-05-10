@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { Carousel } from "antd";
 import API from "../../utils/ApiUrl";
 import { ApiRouter } from "../../utils/ApiRouter";
+import SkeletonComponent from "../SkeletonComponent/SkeletonComponent";
 import Swal from "sweetalert2";
 
-function BannerComponent() {
+function SubBannerComponent(props) {
+  const page = props.page;
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [isSubmit, setIsSubmit] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await API.get(ApiRouter.Banner);
+      const res = await API.get(ApiRouter.SubBanner);
       if (res.data.status === true) {
         setLoading(false);
         if (res.data.data.length === 0) {
@@ -24,12 +26,11 @@ function BannerComponent() {
           });
 
           setData(dataArr);
-
           const itemsWithImages = await Promise.all(
             dataArr.map(async (item) => {
               try {
                 const imageRes = await API.post(
-                  ApiRouter.BannerImage,
+                  ApiRouter.SubBannerImage,
                   {
                     filename: item.link,
                   },
@@ -93,43 +94,41 @@ function BannerComponent() {
     setIsSubmit(false);
   }, [isSubmit]);
 
-  const contentStyle = {
-    width: "100%",
-    height: "100%",
-    color: "#fff",
-    lineHeight: "160px",
-    textAlign: "center",
-    background: "#364d79",
-  };
   return (
-    <div
-      style={{
-        width: "90%",
-        margin: "auto",
-      }}
-    >
-      <Carousel
-        autoplay
-        style={{
-          marginTop: "20px",
-        }}
-      >
-        {data.map((item) => {
-          return (
-            <div key={item.id}>
-              <img
-                src={item.img}
-                style={{
-                  width: "100%",
-                  height: "auto",
-                }}
-              />
-            </div>
-          );
-        })}
-      </Carousel>
-    </div>
+    <>
+      {loading ? (
+        SkeletonComponent
+      ) : (
+        <div
+          style={{
+            width: page === "home" ? "100%" : "90%",
+            margin: "auto",
+          }}
+        >
+          <Carousel
+            autoplay
+            style={{
+              marginTop: page === "home" ? "0px" : "20px",
+            }}
+          >
+            {data.map((item) => {
+              return (
+                <div key={item.id}>
+                  <img
+                    src={item.img}
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </Carousel>
+        </div>
+      )}
+    </>
   );
 }
 
-export default BannerComponent;
+export default SubBannerComponent;

@@ -8,6 +8,7 @@ import MemberPage from "../pages/Member/MemberPage";
 import InterestedCompanyPage from "../pages/Company/InterestedCompanyPage";
 import CompanyPage from "../pages/Company/CompanyPage";
 import MainDetailCompanyPage from "../pages/Company/MainDetailCompanyPage";
+import SubBannerPage from "../pages/website/SubBannerPage";
 
 export const RouterModel = [
   {
@@ -70,5 +71,10 @@ export const RouterModel = [
     routerPath: "/company/:company_id",
     routerComponent: <MainDetailCompanyPage />,
   },
-  
+  {
+    id: 10,
+    routerName: "MainDetailCompany",
+    routerPath: "/subbanner",
+    routerComponent: <SubBannerPage />,
+  }
 ];

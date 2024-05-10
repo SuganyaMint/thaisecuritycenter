@@ -6,7 +6,7 @@ import TolIcon from "../../assets/icon/Group 11tol.png";
 
 function TopNavbar() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
+  const [isSmall, setIsSmall] = useState(true);
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
@@ -23,7 +23,7 @@ function TopNavbar() {
     if (windowWidth < 768) {
       return smallLogo;
     } else {
-      return LongLogo;
+      return smallLogo;
     }
   };
   const fontSize = windowWidth < 768 ? "20px" : "36px";
@@ -51,11 +51,11 @@ function TopNavbar() {
             }}
           >
             <img
-              src={getImageToShow()}
+              src={smallLogo}
               alt="Responsive Image"
               className="mx-auto"
               style={{
-                width: getImageToShow() === smallLogo ? "80px" : "250px",
+                width: windowWidth < 768 ? "80px" : "120px",
                 height: "auto",
                 marginTop: getImageToShow() === smallLogo ? "-5px" : "10px",
                 marginLeft: "20px",

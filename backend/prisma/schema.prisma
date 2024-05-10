@@ -69,6 +69,16 @@ model banner {
   updatedAt DateTime @updatedAt
 }
 
+model sub_banner {
+  id        Int      @id @default(autoincrement())
+  image     String
+  link      String
+  status    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
 model company {
   id            Int      @id @default(autoincrement())
   company_id    String   @unique

@@ -26,7 +26,9 @@ export const MenuArray = [
     getItem('ผู้สนใจบริษัท', 'interestedcompany'),
   ]),
   getItem('จัดการหน้าเว็บไซต์', 'website', <ControlOutlined />, [
-    getItem('Banner', 'banner'),
+    getItem('Main Banner', 'banner'),
+    getItem('Sub Banner', 'subbanner'),
+
     // getItem('Logo', 'logo'),
     // getItem('Button Click', 'button'),
     // getItem('Title Bar', 'titlebar'),

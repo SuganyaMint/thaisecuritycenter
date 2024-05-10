@@ -13,6 +13,7 @@ const UserRouter = require("./routes/UserRouter");
 
 // Website
 const BannerRouter = require("./routes/website/BannerRouter");
+const SubBannerRouter = require("./routes/website/SubBannerRouter");
 const LogoRouter = require("./routes/website/LogoRouter");
 const NewsRouter = require("./routes/website/NewsRouter");
 const SliderRouter = require("./routes/website/SliderRouter");
@@ -71,6 +72,7 @@ app.use("/api/users", UserRouter);
 
 // Website
 app.use("/api/banner", BannerRouter);
+app.use("/api/subbanner", SubBannerRouter);
 // app.use("/api/logo", LogoRouter);
 // app.use("/api/v1/news", NewsRouter);
 // app.use("/api/v1/slider", SliderRouter);

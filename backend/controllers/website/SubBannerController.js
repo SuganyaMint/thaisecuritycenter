@@ -24,7 +24,7 @@ const upload = multer({ storage: storage });
 
 const getBanner = async (req, res) => {
   try {
-    const result = await prisma.banner.findMany();
+    const result = await prisma.sub_banner.findMany();
     res.json({
       status: true,
       message: "Success",
@@ -51,7 +51,7 @@ const createBanner = async (req, res) => {
           error: err.message,
         });
       } else {
-        const result = await prisma.banner.create({
+        const result = await prisma.sub_banner.create({
           data: {
             image: req.file.originalname,
             link: req.file.path,
@@ -78,7 +78,7 @@ const updateBanner = async (req, res) => {
   try {
     let id = parseInt(req.params.id);
     let status = req.body.status;
-    const result = await prisma.banner.updateMany({
+    const result = await prisma.sub_banner.updateMany({
       where: {
         id: id,
       },
@@ -108,13 +108,13 @@ const updateBanner = async (req, res) => {
 };
 const deleteBanner = async (req, res) => {
   try {
-    const getBanner = await prisma.banner.findUnique({
+    const getBanner = await prisma.sub_banner.findUnique({
       where: {
         id: parseInt(req.params.id),
       },
     });
 
-    const result = await prisma.banner.delete({
+    const result = await prisma.sub_banner.delete({
       where: {
         id: parseInt(req.params.id),
       },
@@ -180,14 +180,14 @@ const updatePictureBanner = async (req, res) => {
         let link = req.file.path;
         let image = req.file.originalname;
 
-        const response = await prisma.banner.findUnique({
+        const response = await prisma.sub_banner.findUnique({
           where: {
             id: id,
           },
         });
         fs.unlinkSync(response.link);
 
-        const result = await prisma.banner.update({
+        const result = await prisma.sub_banner.update({
           where: {
             id: id,
           },

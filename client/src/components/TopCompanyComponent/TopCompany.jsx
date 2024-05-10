@@ -127,37 +127,197 @@ function TopCompany() {
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
         ></iframe> */}
-        {data.map(
-          (item, index) => (
-            console.log(index),
-            (
-              <div key={index}>
-                {windowWidth < 768 ? (
-                  <>
-                    <div
-                      className="card bg-base-100 mb-4"
+        {data.map((item, index) => (
+          <div key={index}>
+            {windowWidth < 768 ? (
+              <>
+                <div
+                  className="card bg-base-100 mb-4"
+                  style={{
+                    borderRadius: "10px",
+                    border:
+                      item.star === 1
+                        ? "1px solid #FFD700"
+                        : "1px solid #868686",
+                    boxShadow:
+                      item.star === 1
+                        ? "5px 5px 10px #FFD700"
+                        : "5px 5px 10px #868686",
+                    width: "100%",
+                    height: "auto",
+                  }}
+                >
+                  {item.star === 1 ? (
+                    <div style={{ position: "absolute", top: 0, right: 0 }}>
+                      <img
+                        className={"shake-small"}
+                        src={starIcon}
+                        alt="Movie"
+                        style={{
+                          width: "70px",
+                          height: "auto",
+                          objectFit: "cover",
+                          borderRadius: "10px 10px 0 0",
+                        }}
+                      />
+                    </div>
+                  ) : null}
+
+                  <figure>
+                    <img
+                      src={item.img}
+                      alt="Movie"
                       style={{
-                        borderRadius: "10px",
-                        border:
-                          item.star === 1
-                            ? "1px solid #FFD700"
-                            : "1px solid #868686",
-                        boxShadow:
-                          item.star === 1
-                            ? "5px 5px 10px #FFD700"
-                            : "5px 5px 10px #868686",
-                        width: "100%",
+                        width: "250px",
                         height: "auto",
+                        // objectFit: "cover",
+                        marginTop: "40px",
+                      }}
+                    />
+                  </figure>
+                  <div className="card-body" style={{ position: "relative" }}>
+                    <div style={{ width: "100%" }}>
+                      <p
+                        style={{
+                          fontSize: "14px",
+                        }}
+                        className="card-title"
+                      >
+                        {item.company_name}
+                      </p>
+                    </div>
+
+                    <div style={{ width: "100%" }}>
+                      <p
+                        style={{
+                          fontSize: "12px",
+                        }}
+                      >
+                        {item.description}
+                      </p>
+                    </div>
+
+                    <div style={{ width: "100%" }}>
+                      <p
+                        style={{
+                          fontSize: "12px",
+                        }}
+                      >
+                        ที่อยู่ {item.fullAddress}
+                      </p>
+                    </div>
+
+                    <div
+                      style={{
+                        width: "80%",
+                        display: "flex",
                       }}
                     >
+                      <img
+                        src={tolIcon}
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          marginRight: "5px",
+                          cursor: "pointer", // เพิ่ม cursor: pointer เพื่อให้เป็นตัวบ่งชี้ที่สามารถคลิกได้
+                        }}
+                        onClick={() => {
+                          navigator.clipboard.writeText(item.mobile); // คัดลอก item.mobile ไปยังคลิปบอร์ด
+                        }}
+                      />
+                      <p
+                        style={{
+                          fontSize: "12px",
+                        }}
+                      >
+                        {item.mobile}
+                      </p>
+                    </div>
+                    <div
+                      style={{
+                        height: "50px",
+                        display: "flex",
+                        justifyContent: "right",
+                        alignItems: "right",
+                      }}
+                    >
+                      <button
+                        className="btn btn-active btn-sm"
+                        style={{
+                          backgroundColor: "#FFD700",
+                          color: "#000000",
+                          border: "none",
+                          borderRadius: "5px",
+                          padding: "5px 10px",
+                          cursor: "pointer",
+                          width: "80px",
+                          position: "absolute",
+                          bottom: 10,
+                          right: 10,
+                          boxShadow: "0 0 5px #868686",
+                          fontSize: "12px",
+                        }}
+                      >
+                        ดูเพิ่มเติม
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div
+                  className="card card-side bg-base-100 mb-4"
+                  style={{
+                    borderRadius: "10px",
+                    border:
+                      item.star === 1
+                        ? "1px solid #FFD700"
+                        : "1px solid #868686",
+                    boxShadow:
+                      item.star === 1
+                        ? "5px 5px 10px #FFD700"
+                        : "5px 5px 10px #868686",
+                    width: "100%",
+                    height: "auto",
+                  }}
+                >
+                  <div
+                    style={{
+                      width: "30%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <figure style={{ width: "90%" }}>
+                      <img
+                        src={item.img}
+                        alt="Movie"
+                        style={{
+                          width: "90%",
+                          height: "auto",
+                          objectFit: "cover",
+                          borderRadius: "10px 10px 0 0",
+                        }}
+                      />
+                    </figure>
+                  </div>
+
+                  <div
+                    style={{
+                      width: "70%",
+                    }}
+                  >
+                    <div className="card-body" style={{ position: "relative" }}>
                       {item.star === 1 ? (
                         <div style={{ position: "absolute", top: 0, right: 0 }}>
                           <img
-                            className={"shake-small"}
+                            className={"shake-large"}
                             src={starIcon}
                             alt="Movie"
                             style={{
-                              width: "70px",
+                              width: "100px",
                               height: "auto",
                               objectFit: "cover",
                               borderRadius: "10px 10px 0 0",
@@ -166,246 +326,73 @@ function TopCompany() {
                         </div>
                       ) : null}
 
-                      <figure>
+                      <div style={{ width: "80%" }}>
+                        <h2 className="card-title">{item.company_name}</h2>
+                      </div>
+
+                      <div style={{ width: "80%" }}>
+                        <p>{item.description}</p>
+                      </div>
+
+                      <div style={{ width: "80%" }}>
+                        <p>ที่อยู่ {item.fullAddress}</p>
+                      </div>
+
+                      <div
+                        style={{
+                          width: "80%",
+                          display: "flex",
+                        }}
+                      >
                         <img
-                          src={item.img}
-                          alt="Movie"
+                          src={tolIcon}
                           style={{
-                            width: "250px",
-                            height: "auto",
-                            // objectFit: "cover",
-                            marginTop: "40px",
+                            width: "30px",
+                            height: "30px",
+                            marginRight: "10px",
+                            cursor: "pointer", // เพิ่ม cursor: pointer เพื่อให้เป็นตัวบ่งชี้ที่สามารถคลิกได้
+                          }}
+                          onClick={() => {
+                            navigator.clipboard.writeText(item.mobile); // คัดลอก item.mobile ไปยังคลิปบอร์ด
                           }}
                         />
-                      </figure>
-                      <div
-                        className="card-body"
-                        style={{ position: "relative" }}
-                      >
-                        <div style={{ width: "100%" }}>
-                          <p
-                            style={{
-                              fontSize: "14px",
-                            }}
-                            className="card-title"
-                          >
-                            {item.company_name}
-                          </p>
-                        </div>
-
-                        <div style={{ width: "100%" }}>
-                          <p
-                            style={{
-                              fontSize: "12px",
-                            }}
-                          >
-                            {item.description}
-                          </p>
-                        </div>
-
-                        <div style={{ width: "100%" }}>
-                          <p
-                            style={{
-                              fontSize: "12px",
-                            }}
-                          >
-                            ที่อยู่ {item.fullAddress}
-                          </p>
-                        </div>
-
-                        <div
-                          style={{
-                            width: "80%",
-                            display: "flex",
-                          }}
-                        >
-                          <img
-                            src={tolIcon}
-                            style={{
-                              width: "20px",
-                              height: "20px",
-                              marginRight: "5px",
-                              cursor: "pointer", // เพิ่ม cursor: pointer เพื่อให้เป็นตัวบ่งชี้ที่สามารถคลิกได้
-                            }}
-                            onClick={() => {
-                              navigator.clipboard.writeText(item.mobile); // คัดลอก item.mobile ไปยังคลิปบอร์ด
-                            }}
-                          />
-                          <p
-                            style={{
-                              fontSize: "12px",
-                            }}
-                          >
-                            {item.mobile}
-                          </p>
-                        </div>
-                        <div
-                          style={{
-                            height: "50px",
-                            display: "flex",
-                            justifyContent: "right",
-                            alignItems: "right",
-                          }}
-                        >
-                          <button
-                            className="btn btn-active btn-sm"
-                            style={{
-                              backgroundColor: "#FFD700",
-                              color: "#000000",
-                              border: "none",
-                              borderRadius: "5px",
-                              padding: "5px 10px",
-                              cursor: "pointer",
-                              width: "80px",
-                              position: "absolute",
-                              bottom: 10,
-                              right: 10,
-                              boxShadow: "0 0 5px #868686",
-                              fontSize: "12px",
-                            }}
-                          >
-                            ดูเพิ่มเติม
-                          </button>
-                        </div>
+                        <p>{item.mobile}</p>
                       </div>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div
-                      className="card card-side bg-base-100 mb-4"
-                      style={{
-                        borderRadius: "10px",
-                        border:
-                          item.star === 1
-                            ? "1px solid #FFD700"
-                            : "1px solid #868686",
-                        boxShadow:
-                          item.star === 1
-                            ? "5px 5px 10px #FFD700"
-                            : "5px 5px 10px #868686",
-                        width: "100%",
-                        height: "auto",
-                      }}
-                    >
+
                       <div
                         style={{
-                          width: "30%",
+                          height: "50px",
                           display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
+                          justifyContent: "right",
+                          alignItems: "right",
                         }}
                       >
-                        <figure style={{ width: "90%" }}>
-                          <img
-                            src={item.img}
-                            alt="Movie"
-                            style={{
-                              width: "90%",
-                              height: "auto",
-                              objectFit: "cover",
-                              borderRadius: "10px 10px 0 0",
-                            }}
-                          />
-                        </figure>
-                      </div>
-
-                      <div
-                        style={{
-                          width: "70%",
-                        }}
-                      >
-                        <div
-                          className="card-body"
-                          style={{ position: "relative" }}
+                        <button
+                          className="btn btn-active btn-sm"
+                          style={{
+                            backgroundColor: "#FFD700",
+                            color: "#000000",
+                            border: "none",
+                            borderRadius: "5px",
+                            padding: "5px 10px",
+                            cursor: "pointer",
+                            width: "100px",
+                            position: "absolute",
+                            bottom: 10,
+                            right: 10,
+                            boxShadow: "0 0 5px #868686",
+                          }}
                         >
-                          {item.star === 1 ? (
-                            <div
-                              style={{ position: "absolute", top: 0, right: 0 }}
-                            >
-                              <img
-                                className={"shake-large"}
-                                src={starIcon}
-                                alt="Movie"
-                                style={{
-                                  width: "100px",
-                                  height: "auto",
-                                  objectFit: "cover",
-                                  borderRadius: "10px 10px 0 0",
-                                }}
-                              />
-                            </div>
-                          ) : null}
-
-                          <div style={{ width: "80%" }}>
-                            <h2 className="card-title">{item.company_name}</h2>
-                          </div>
-
-                          <div style={{ width: "80%" }}>
-                            <p>{item.description}</p>
-                          </div>
-
-                          <div style={{ width: "80%" }}>
-                            <p>ที่อยู่ {item.fullAddress}</p>
-                          </div>
-
-                          <div
-                            style={{
-                              width: "80%",
-                              display: "flex",
-                            }}
-                          >
-                            <img
-                              src={tolIcon}
-                              style={{
-                                width: "30px",
-                                height: "30px",
-                                marginRight: "10px",
-                                cursor: "pointer", // เพิ่ม cursor: pointer เพื่อให้เป็นตัวบ่งชี้ที่สามารถคลิกได้
-                              }}
-                              onClick={() => {
-                                navigator.clipboard.writeText(item.mobile); // คัดลอก item.mobile ไปยังคลิปบอร์ด
-                              }}
-                            />
-                            <p>{item.mobile}</p>
-                          </div>
-
-                          <div
-                            style={{
-                              height: "50px",
-                              display: "flex",
-                              justifyContent: "right",
-                              alignItems: "right",
-                            }}
-                          >
-                            <button
-                              className="btn btn-active btn-sm"
-                              style={{
-                                backgroundColor: "#FFD700",
-                                color: "#000000",
-                                border: "none",
-                                borderRadius: "5px",
-                                padding: "5px 10px",
-                                cursor: "pointer",
-                                width: "100px",
-                                position: "absolute",
-                                bottom: 10,
-                                right: 10,
-                                boxShadow: "0 0 5px #868686",
-                              }}
-                            >
-                              ดูเพิ่มเติม
-                            </button>
-                          </div>
-                        </div>
+                          ดูเพิ่มเติม
+                        </button>
                       </div>
                     </div>
-                  </>
-                )}
-              </div>
-            )
-          )
-        )}
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        ))}
       </>
     );
   };

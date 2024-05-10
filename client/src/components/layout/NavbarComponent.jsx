@@ -31,14 +31,6 @@ function NavbarComponent() {
     };
   }, []);
 
-  const getImageToShow = () => {
-    if (windowWidth < 768) {
-      return smallLogo;
-    } else {
-      return LongLogo;
-    }
-  };
-
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
