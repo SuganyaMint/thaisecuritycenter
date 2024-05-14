@@ -26,6 +26,7 @@ const upload = multer({ storage: storage });
 const getCompanyImage = async (req, res) => {
   try {
     let imageName = req.body.filename;
+
     let imagePathPattern = path.join(__dirname, `../../${imageName}`);
 
     glob(imagePathPattern, (err, files) => {
@@ -301,7 +302,6 @@ const fixStart = async (req, res) => {
     });
   }
 };
-
 const getDataComIDImage = async (req, res) => {
   try {
     const company_id = req.params.company_id;
@@ -453,7 +453,6 @@ const getCompanyClient = async (req, res) => {
     // console.log(datasend);
     //เอาเฉพาะ 20 อันดับแรก
     datasend = datasend.slice(0, 20);
-    console.log(datasend.length);
 
     res.json({
       status: true,
@@ -470,6 +469,64 @@ const getCompanyClient = async (req, res) => {
   }
 };
 
+const toptenCompany = async (req, res) => {
+  try {
+    const result = await prisma.companyImage.findMany();
+    //sort image by id
+    result.sort((a, b) => a.company_id - b.company_id);
+    result.sort((a, b) => a.id - b.id);
+    result.sort((a, b) => a.order - b.order);
+
+    //remove duplicate by company_id
+    let distinct = [];
+    let distinctCompany = [];
+    for (let i = 0; i < result.length; i++) {
+      if (distinctCompany.indexOf(result[i].company_id) === -1) {
+        distinctCompany.push(result[i].company_id);
+        distinct.push(result[i]);
+      }
+    }
+
+    let datasend = [];
+    const getCompany = await prisma.company.findMany({
+      take: 10,
+      orderBy: {
+        visited: "desc",
+      },
+      where: {
+        status: 1,
+      },
+    });
+    getCompany.map((item) => {
+      distinct.map((item2) => {
+        if (item.company_id === item2.company_id) {
+          datasend.push({
+            ...item2,
+            ...item,
+          });
+        }
+      });
+    });
+
+    //sort image by id
+    datasend.sort((a, b) => b.visited - a.visited);
+
+    res.json({
+      status: true,
+      message: "Success",
+      data: datasend,
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: false,
+      message: "Error",
+      error: error.message,
+    });
+  }
+};
+
+
 module.exports = {
   getCompanyImage,
   getCompany,
@@ -483,4 +540,5 @@ module.exports = {
   getDataLogoImage,
   changeHire,
   getCompanyClient,
+  toptenCompany,
 };

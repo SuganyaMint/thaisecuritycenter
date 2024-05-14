@@ -106,7 +106,7 @@ function ImageCompanyPage() {
   return (
     <>
       {loading ? (
-        <>
+        <> 
           <SkeletonComponent />
         </>
       ) : (

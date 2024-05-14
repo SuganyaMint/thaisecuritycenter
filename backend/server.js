@@ -22,6 +22,8 @@ const TitleRouter = require("./routes/website/TitleRouter");
 const TitleBarRouter = require("./routes/website/TitleBarRouter");
 const ButtonRouter = require("./routes/website/ButtonRouter");
 
+const ArticleRouter = require("./routes/Article_route/Article_route");
+
 // Promotion
 const HotpackRouter = require("./routes/Promotion/HotpackRouter");
 const LevelPromotionRouter = require("./routes/Promotion/LevelPromotionRouter");
@@ -97,6 +99,9 @@ app.use("/api/v1/member/register", MemberRouter);
 
 //Address
 app.use("/api/v1/address", AddressRouter);
+
+// Article
+app.use("/api/v1/article", ArticleRouter);
 
 
 app.listen(process.env.PORT, () => {

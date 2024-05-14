@@ -13,7 +13,8 @@ const {
   getDataComIDImage,
   getDataLogoImage,
   changeHire,
-  getCompanyClient
+  getCompanyClient,
+  toptenCompany
 } = require("../../controllers/Company/CompanyController");
 
 router.get("/", getCompany);
@@ -29,6 +30,8 @@ router.get("/show/to/client", getCompanyClient);
 router.put("/status/:id", changeStatusCompany);
 router.put("/star/:id", fixStart);
 router.put("/hire/:id", changeHire);
+
+router.get("/top/ten", toptenCompany);
 
 
 module.exports = router;

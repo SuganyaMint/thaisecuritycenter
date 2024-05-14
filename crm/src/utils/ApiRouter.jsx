@@ -23,6 +23,10 @@ export const ApiRouter = {
   Member: "/api/v1/member/register/",
   ChangeTypeMember: "/api/v1/member/register/type/",
 
+  //article
+  Article: "/api/v1/article/",
+  ArticleImage: "/api/v1/article/image",
+
   //company
   Company: "/api/v1/company/",
   CompanyImage: "/api/v1/company/image",

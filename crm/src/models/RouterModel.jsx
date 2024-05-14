@@ -9,6 +9,7 @@ import InterestedCompanyPage from "../pages/Company/InterestedCompanyPage";
 import CompanyPage from "../pages/Company/CompanyPage";
 import MainDetailCompanyPage from "../pages/Company/MainDetailCompanyPage";
 import SubBannerPage from "../pages/website/SubBannerPage";
+import ArticlePage from "../pages/website/ArticlePage";
 
 export const RouterModel = [
   {
@@ -72,9 +73,15 @@ export const RouterModel = [
     routerComponent: <MainDetailCompanyPage />,
   },
   {
-    id: 10,
+    id: 11,
     routerName: "MainDetailCompany",
     routerPath: "/subbanner",
     routerComponent: <SubBannerPage />,
+  },
+  {
+    id: 12,
+    routerName: "Article",
+    routerPath: "/article",
+    routerComponent: <ArticlePage />,
   }
 ];

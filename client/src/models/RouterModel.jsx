@@ -8,6 +8,9 @@ import InterestedCompanyPage from "../pages/Company/InterestedCompanyPage";
 import CompanyPage from "../pages/Company/CompanyPage";
 import MainDetailCompanyPage from "../pages/Company/MainDetailCompanyPage";
 import SearchCompanyPage from "../pages/SearchCompanyPage";
+import NewsPage from "../pages/website/NewsPage";
+import NewsDetailPage from "../pages/website/NewsDetailPage";
+import DetailCompanyPage from "../pages/Company/DetailCompanyPage";
 
 export const RouterModel = [
   {
@@ -65,5 +68,28 @@ export const RouterModel = [
     routerPath: "/searchcompany",
     routerComponent: <SearchCompanyPage />,
   },
-  
+  {
+    id: 11,
+    routerName: "News",
+    routerPath: "/news",
+    routerComponent: <NewsPage />,
+  },
+  {
+    id: 12,
+    routerName: "NewsDetail",
+    routerPath: "/news/:article_id",
+    routerComponent: <NewsDetailPage />,
+  },
+  {
+    id: 13,
+    routerName: "CompanyDetail",
+    routerPath: "/company/:company_id",
+    routerComponent: <DetailCompanyPage />,
+  },
+  {
+    id: 14,
+    routerName: "Company",
+    routerPath: "/company",
+    routerComponent: <CompanyPage />,
+  },
 ];

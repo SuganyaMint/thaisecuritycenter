@@ -14,6 +14,12 @@ export const ApiRouter = {
   SubBanner: "/api/subbanner/",
   SubBannerImage: "/api/subbanner/image",
 
+  //article
+  Article: "/api/v1/article/",
+  ArticleImage: "/api/v1/article/image",
+  ArticleNewsItems: "/api/v1/article/news/items",
+  ArticleTopTen: "/api/v1/article/news/topten",
+
   //Contact
   ContactMe: "/api/v1/contact/",
   ContactInterested: "/api/v1/contact_in/",
@@ -31,12 +37,13 @@ export const ApiRouter = {
   CompanyLogo: "/api/v1/company/image/logo",
 
   CompanyClient: "/api/v1/company/show/to/client",
+  CompanyTopTen : "/api/v1/company/top/ten",
 
   //Address
   Pronvinces: "/api/v1/address/pronvinces",
   Amphoe: "/api/v1/address/amphoe/",
   Tambon: "/api/v1/address/tambon/",
-  Geo : "/api/v1/address/geo/",
+  Geo: "/api/v1/address/geo/",
   NearBKK: "/api/v1/address/nearbkk",
   AmphoeInBKK: "/api/v1/address/amphoeinbkk",
 

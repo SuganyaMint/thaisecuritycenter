@@ -1,69 +1,325 @@
 import { Layout } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 const { Footer } = Layout;
+import logo from "../../assets/icon/logonew.png";
+import { PhoneFilled, MailFilled } from "@ant-design/icons";
 
 function FooterComponent() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   return (
     <div
       style={{
         marginTop: "50px",
       }}
     >
-      <footer className="footer p-10 bg-base-300 text-base-content">
-        <nav>
-          <h6 className="footer-title">Services</h6>
-          <a className="link link-hover">Branding</a>
-          <a className="link link-hover">Design</a>
-          <a className="link link-hover">Marketing</a>
-          <a className="link link-hover">Advertisement</a>
-        </nav>
-        <nav>
-          <h6 className="footer-title">Company</h6>
-          <a className="link link-hover">About us</a>
-          <a className="link link-hover">Contact</a>
-          <a className="link link-hover">Jobs</a>
-          <a className="link link-hover">Press kit</a>
-        </nav>
-        <nav>
-          <h6 className="footer-title">Social</h6>
-          <div className="grid grid-flow-col gap-4">
-            <a>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                className="fill-current"
-              >
-                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
-              </svg>
-            </a>
-            <a>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                className="fill-current"
-              >
-                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
-              </svg>
-            </a>
-            <a>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                className="fill-current"
-              >
-                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"></path>
-              </svg>
-            </a>
-          </div>
-        </nav>
-      </footer>
       <div
+        className="footer  bg-base-300 text-base-content"
+        style={{
+          width: "100%",
+          height: "30px",
+          display: "flex",
+          justifyContent: windowWidth < 786 ? "center" : null,
+        }}
+      >
+        <div
+          style={{
+            width: "90%",
+            height: "20px",
+            display: "flex",
+            justifyContent: windowWidth < 768 ? "center" : "flex-end",
+            marginTop: "10px",
+          }}
+        >
+          <p
+            style={{
+              fontSize: windowWidth < 768 ? "12px" : "16px",
+              color: "#686868",
+            }}
+          >
+            หน้าหลัก |
+          </p>
+          <p
+            style={{
+              fontSize: windowWidth < 768 ? "12px" : "16px",
+              color: "#686868",
+            }}
+          >
+            ค้นหา |
+          </p>
+          <p
+            style={{
+              fontSize: windowWidth < 768 ? "12px" : "16px",
+              color: "#686868",
+            }}
+          >
+            โฆษณากับเรา |
+          </p>
+          <p
+            style={{
+              fontSize: windowWidth < 768 ? "12px" : "16px",
+              color: "#686868",
+            }}
+          >
+            ติดต่อเรา
+          </p>
+        </div>
+      </div>
+
+      <footer className="footer  bg-base-300 text-base-content">
+        <div
+          style={{
+            width: windowWidth < 768 ? "90%" : "80%",
+            // border: "1px solid red",
+            display: "flex",
+            justifyContent: "space-between",
+            margin: "auto",
+          }}
+        >
+          <div className="divider"></div>
+          <div
+            className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 "
+            style={{
+              display: windowWidth < 768 ? "grid" : "flex",
+              width: "100%",
+            }}
+          >
+            <div
+              style={{
+                width: windowWidth < 768 ? "100%" : "30%",
+                height: "auto",
+                // border: "1px solid red",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  // border: "1px solid blue",
+                  marginRight: windowWidth < 768 ? null : "50px",
+                  width: "100%",
+                  marginTop: "20px",
+                }}
+              >
+                <div>
+                  <p
+                    style={{
+                      padding: "5px",
+                      marginBottom: "10px",
+                      fontWeight: "bold",
+                      fontSize: windowWidth < 768 ? "14px" : "18px",
+                    }}
+                  >
+                    บริการของเรา
+                  </p>
+                  <p
+                    style={{
+                      color: "#686868",
+                      padding: "5px",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
+                    }}
+                  >
+                    รายชื่อบริษัทรักษาความปลอดภัยทั้งหมด
+                  </p>
+                  <p
+                    style={{
+                      color: "#686868",
+                      padding: "5px",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
+                    }}
+                  >
+                    ข่าวสารและบทความ
+                  </p>
+                  <p
+                    style={{
+                      color: "#686868",
+                      padding: "5px",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
+                    }}
+                  >
+                    โปรโมทบริษัทรักษาความปลอดภัยของคุณ
+                  </p>
+                  <p
+                    style={{
+                      color: "#686868",
+                      padding: "5px",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
+                    }}
+                  >
+                    คำถามที่พบบ่อย
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              style={{
+                width: windowWidth < 768 ? "100%" : "30%",
+                height: "auto",
+                // border: "1px solid red",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  // border: "1px solid red",
+                  width: "100%",
+                  marginTop: "20px",
+                }}
+              >
+                <div>
+                  <p
+                    style={{
+                      padding: "5px",
+                      marginBottom: "10px",
+                      fontWeight: "bold",
+                      fontSize: windowWidth < 768 ? "14px" : "18px",
+                    }}
+                  >
+                    บริษัทของเรา
+                  </p>
+                  <p
+                    style={{
+                      color: "#686868",
+                      padding: "5px",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
+                    }}
+                  >
+                    โฆษณากับเรา
+                  </p>
+                  <p
+                    style={{
+                      color: "#686868",
+                      padding: "5px",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
+                    }}
+                  >
+                    เกี่ยวกับเรา
+                  </p>
+                  <p
+                    style={{
+                      color: "#686868",
+                      padding: "5px",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
+                    }}
+                  >
+                    ติดต่อเรา
+                  </p>
+                  <p
+                    style={{
+                      color: "#686868",
+                      padding: "5px",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
+                    }}
+                  >
+                    ติดต่อลงโฆษณา
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              style={{
+                width: windowWidth < 768 ? "100%" : "40%",
+                height: "auto",
+                // border: "1px solid red",
+                marginBottom: "20px",
+              }}
+            >
+              <div
+                style={{
+                  // border: "1px solid black",
+                  textAlign: windowWidth < 768 ? "center" : "right", // ทำให้ข้อความชิดขวา
+                  width: "100%",
+                  marginLeft: windowWidth < 768 ? "auto" : "auto",
+                  marginTop: "20px",
+                }}
+              >
+                <div>
+                  <img
+                    src={logo}
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      marginLeft: windowWidth < 768 ? "35%" : "auto",
+                      marginBottom: "10px",
+                    }}
+                  ></img>
+                </div>
+
+                <div
+                // style={{
+                //   textAlign: windowWidth < 768 ? "center" : "right", // ทำให้ข้อความชิดขวา
+                // }}
+                >
+                  <p
+                    style={{
+                      fontSize: windowWidth < 768 ? "14px" : "20px",
+                      // marginBottom: windowWidth < 768 ? "14px" : "20px","10px",
+                    }}
+                  >
+                    Thai Security ยินดีให้บริการ
+                  </p>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: windowWidth < 768 ? "center" : "flex-end",
+                  }}
+                >
+                  <PhoneFilled
+                    style={{
+                      fontSize: windowWidth < 768 ? "14px" : "25px",
+                      color: "#E1B200",
+                      marginRight: "10px",
+                    }}
+                  />{" "}
+                  <p
+                    style={{
+                      fontSize: windowWidth < 768 ? "14px" : "20px",
+                    }}
+                  >
+                    ติดต่อโฆษณา : 082 479 4746{" "}
+                  </p>
+                </div>
+
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: windowWidth < 768 ? "center" : "flex-end",
+                  }}
+                >
+                  <MailFilled
+                    style={{
+                      fontSize: windowWidth < 768 ? "14px" : "25px",
+                      color: "#E1B200",
+                      marginRight: "10px",
+                    }}
+                  />
+                  <p
+                    style={{
+                      fontSize: windowWidth < 768 ? "14px" : "20px",
+                    }}
+                  >
+                    ads2thai@gmail.com
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+
+      <div
+        className="bg-yellow-500"
         style={{
           // marginTop: "20px",
           textAlign: "center",
@@ -72,15 +328,15 @@ function FooterComponent() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          backgroundColor: "#FFD700",
+          fontSize: windowWidth < 768 ? "12px" : "16px",
         }}
       >
-        Copyright © 2024 - All rights reserved by {"  "}
+        Copyright © 2024 rev.00 - All rights reserved by {"  "}
         <a
           href="https://suganya-profiles.com/"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "#17AEB3", textDecoration: "none" }}
+          style={{ color: "#FFF6AE", textDecoration: "none" }}
         >
           {"  "} Syganya.P
         </a>

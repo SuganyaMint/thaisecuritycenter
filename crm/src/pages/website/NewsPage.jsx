@@ -22,7 +22,7 @@ function NewsPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await API.get(ApiRouter.NewsEvent);
+      const res = await API.get(ApiRouter.Article);
 
       if (res.data.status === true) {
         setLoading(false);
@@ -34,7 +34,7 @@ function NewsPage() {
             res.data.data.map(async (item) => {
               try {
                 const imageRes = await API.post(
-                  ApiRouter.NewsEventImage,
+                  ApiRouter.ArticleImage,
                   {
                     filename: item.link,
                   },
@@ -111,7 +111,7 @@ function NewsPage() {
         cancelButtonText: "ยกเลิก",
       }).then(async (result) => {
         if (result.isConfirmed) {
-          const res = await API.delete(ApiRouter.NewsEvent + id);
+          const res = await API.delete(ApiRouter.Article + id);
           if (res.data.status === true) {
             Swal.fire({
               title: "ลบข้อมูลสำเร็จ !",
@@ -141,15 +141,15 @@ function NewsPage() {
 
   const columns = [
     {
-      title: "Title",
-      dataIndex: "title",
-      key: "title",
+      title: "topic",
+      dataIndex: "topic",
+      key: "topic",
       align: "center",
     },
     {
-      title: "Sub title",
-      dataIndex: "subtitle",
-      key: "subtitle",
+      title: "visited",
+      dataIndex: "visited",
+      key: "visited",
       align: "center",
     },
     {
@@ -159,48 +159,48 @@ function NewsPage() {
       align: "center",
       render: (_, record) => (
         <>
-          <EditImageNewsModal img={record.img} id={record.id} />
+          {/* <EditImageNewsModal img={record.img} id={record.id} /> */}
         </>
       ),
     },
     {
-      title: "ลำดับ",
-      key: "order",
-      dataIndex: "order",
+      title: "published",
+      key: "published",
+      dataIndex: "published",
       align: "center",
 
-      render: (_, record) => (
-        <>
-          <UpdateOrderNewsModal data={record} allData = {data}/>
-        </>
-      ),
+      // render: (_, record) => (
+      //   <>
+      //     <UpdateOrderNewsModal data={record} allData = {data}/>
+      //   </>
+      // ),
     },
-    {
-      title: "Status",
-      key: "status",
-      dataIndex: "status",
-      align: "center",
+    // {
+    //   title: "Status",
+    //   key: "status",
+    //   dataIndex: "status",
+    //   align: "center",
 
-      render: (_, record) => (
-        <>
-          <UpdateStatusNewsModal data={record}  />
-        </>
-      ),
-    },
+    //   render: (_, record) => (
+    //     <>
+    //       <UpdateStatusNewsModal data={record}  />
+    //     </>
+    //   ),
+    // },
     {
       title: "Action",
       key: "action",
       align: "center",
       render: (_, record) => (
         <Space size="middle">
-          <EditNewsModel
+          {/* <EditNewsModel
             id={record.id}
             description={record.description}
             setIsSubmit={setIsSubmit}
             title={record.title}
             subtitle={record.subtitle}
           />
-          <ViewNewsModel id={record.description} />
+          <ViewNewsModel id={record.description} /> */}
           <Button type="primary" danger onClick={() => handleDelete(record.id)}>
             Delete
           </Button>
@@ -216,7 +216,7 @@ function NewsPage() {
         </>
       ) : (
         <>
-          <Title level={2}>News Event Management</Title>
+          <Title level={2}>รายละเอียดบทความ</Title>
           <div
             style={{
               display: "flex",
@@ -224,7 +224,7 @@ function NewsPage() {
               marginBottom: "20px",
             }}
           >
-            <CreateNewsModel setIsSubmit={setIsSubmit} data = {data}/>
+            {/* <CreateNewsModel setIsSubmit={setIsSubmit} data = {data}/> */}
           </div>
           <Divider />
           <Paragraph>

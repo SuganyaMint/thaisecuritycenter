@@ -5,6 +5,8 @@ import { ApiRouter } from "../utils/ApiRouter";
 import { UpCircleOutlined } from "@ant-design/icons";
 import SkeletonComponent from "../components/SkeletonComponent/SkeletonComponent";
 import SubBannerComponent from "../components/BannerComponent/SubBannerComponent";
+import { Link } from "react-router-dom";
+import { withConfirm } from "antd/es/modal/confirm";
 function SearchCompanyPage() {
   const [loading, setLoading] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -16,7 +18,7 @@ function SearchCompanyPage() {
   const [Geo_C, setGeo_C] = useState([]); //ภาคกลาง
   const [Geo_BKK, setGeo_BKK] = useState([]); //กรุงเทพมหานคร
   const [nearBKK, setNearBKK] = useState([]); // ใกล้กรุงเทพมหานคร
-
+  const [data, setData] = useState([]);
   const Geo = [
     {
       id: 1,
@@ -54,6 +56,91 @@ function SearchCompanyPage() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await API.get(ApiRouter.ArticleNewsItems + "/12");
+      if (res.data.status === true) {
+        // setLoading(false);
+        if (res.data.data.length === 0) {
+          // setLoading(false);
+        } else {
+          let dataArr = [];
+          res.data.data.map((item) => {
+            if (item.published === 1) {
+              dataArr.push(item);
+            }
+          });
+
+          setData(dataArr);
+
+          const itemsWithImages = await Promise.all(
+            dataArr.map(async (item) => {
+              try {
+                const imageRes = await API.post(
+                  ApiRouter.ArticleImage,
+                  {
+                    filename: item.link,
+                  },
+                  {
+                    responseType: "arraybuffer",
+                  }
+                );
+                const blob = new Blob([imageRes.data], { type: "image/jpeg" });
+                const imageUrl = URL.createObjectURL(blob);
+                return {
+                  ...item,
+                  img: imageUrl,
+                  key: item.id,
+                };
+              } catch (error) {
+                console.error("Error fetching image:", error);
+                return item;
+              }
+            })
+          );
+          setData(itemsWithImages);
+        }
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "เกิดข้อผิดพลาด ไม่สามารถดึงข้อมูลได้ โปรดลองใหม่อีกครั้ง",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          cancelButtonText: "ยกเลิก",
+          confirmButtonText: "ลองใหม่อีกครั้ง",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: "กำลังโหลด",
+              text: "โปรดรอสักครู่...",
+              icon: "info",
+              showConfirmButton: false,
+              allowOutsideClick: false,
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          } else {
+            Swal.fire({
+              title: "กำลังยกเลิกและกลับสู่หน้าหลัก",
+              text: "โปรดรอสักครู่...",
+              icon: "info",
+              showConfirmButton: false,
+              allowOutsideClick: false,
+            });
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 1000);
+          }
+        });
+      }
+    };
+    fetchData();
+    // setIsSubmit(false);
   }, []);
 
   useEffect(() => {
@@ -120,7 +207,7 @@ function SearchCompanyPage() {
         <>
           <div id="topview"></div>
           <GuideComponent numImages={4} />
-          <SubBannerComponent page="search"/>
+          <SubBannerComponent page="search" />
           <div
             style={{
               width: "90%",
@@ -176,9 +263,13 @@ function SearchCompanyPage() {
                   </button>
                 </div>
 
+                <h2 className="text-xl mb-2 mt-6 text-amber-500">
+                  ค้นหาจากเขตในกรุงเทพ
+                </h2>
+
                 <div className="divider"></div>
                 <div
-                  className="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-1 "
+                  className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 "
                   style={{
                     width: "100%",
                     // display: "flex",
@@ -196,7 +287,12 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p
+                              className="text-black hover:text-amber-500 cursor-pointer"
+                              style={{
+                                fontSize: windowWidth < 768 ? "12px" : "16px",
+                              }}
+                            >
                               » บริษัทรักษาความปลอดภัย เขต {item.AmphoeThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -208,7 +304,12 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p
+                              style={{
+                                fontSize: windowWidth < 768 ? "12px" : "16px",
+                              }}
+                              className="text-black hover:text-amber-500 cursor-pointer"
+                            >
                               » บริษัทรักษาความปลอดภัย เขต {item.AmphoeThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -246,7 +347,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -258,7 +363,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                            
+                            style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}>
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -295,7 +404,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -307,7 +420,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -342,7 +459,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -354,7 +475,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -381,7 +506,6 @@ function SearchCompanyPage() {
                     gap: "10px",
                   }}
                 >
-       
                   {Geo_NE.map((item, index) => {
                     return (
                       <div key={index}>
@@ -390,7 +514,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -402,7 +530,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -438,7 +570,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -450,7 +586,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -486,7 +626,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -498,7 +642,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -534,7 +682,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -546,7 +698,11 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer">
+                            <p className="text-black hover:text-amber-500 cursor-pointer"
+                             style={{
+                              fontSize: windowWidth < 768 ? "12px" : "16px",
+                            }}
+                            >
                               » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
                               <span className="text-gray-300">
                                 ({item.count})
@@ -560,63 +716,132 @@ function SearchCompanyPage() {
                 </div>
               </div>
 
-              <div
-                className="bg-white p-4 rounded-lg shadow-md"
-                style={{
-                  marginTop: "10px",
-                  marginBottom: "20px",
-                  justifyContent: "center",
-                  border: "1px solid red",
-                  width: windowWidth < 768 ? "100%" : "20%",
-                  height: "auto",
-                }}
-              >
+              {windowWidth < 768 ? null : (
                 <div
-                  className="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-1 "
+                  className="bg-white p-4 rounded-lg shadow-md"
                   style={{
-                    width: "100%",
-                    // display: "flex",
+                    marginTop: "10px",
+                    marginBottom: "20px",
                     justifyContent: "center",
+                    border: "1px solid red",
+                    width: windowWidth < 768 ? "100%" : "20%",
+                    height: "auto",
                   }}
                 >
                   <div
+                    className="grid grid-cols-2 md:grid-cols-1 lg:grid-cols-1 "
                     style={{
                       width: "100%",
-                      height: "200px",
-                      border: "1px solid black",
+                      // display: "flex",
+                      justifyContent: "center",
                     }}
                   >
-                    blog 2 1
-                  </div>
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "200px",
-                      border: "1px solid black",
-                    }}
-                  >
-                    blog 2 2
-                  </div>
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "200px",
-                      border: "1px solid black",
-                    }}
-                  >
-                    blog 2 1
-                  </div>
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "200px",
-                      border: "1px solid black",
-                    }}
-                  >
-                    blog 2 2
+                    <div
+                      className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-1"
+                      style={{
+                        width: "100%",
+                        height: windowWidth < 768 ? "130px" : "220px",
+
+                        justifyContent: "center",
+                        marginTop: windowWidth < 768 ? "0px" : "20px",
+                        display: "flex",
+                      }}
+                    >
+                      <div
+                        style={{
+                          width: "100%",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          // border: "1px solid red",
+                          height: "100%",
+                          // display: "flex",
+                          // overflow: "auto",
+                        }}
+                      >
+                        {data.map((item) => {
+                          return (
+                            <Link to={`/news/${item.article_id}`}>
+                              <div key={item.id}>
+                                <img
+                                  src={item.img}
+                                  style={{
+                                    width: "100%",
+                                    height: "auto",
+                                    padding: "5px",
+                                  }}
+                                />
+                                <p
+                                  style={{
+                                    // textAlign: "center",
+                                    marginLeft: "10px",
+                                    fontSize:
+                                      windowWidth < 768 ? "10px" : "16px",
+                                    fontWeight: "bold",
+                                    // สีเหลือง
+                                    color: "#E19D00",
+                                  }}
+                                >
+                                  {item.topic.length > 30
+                                    ? item.topic
+                                        .substring(0, 30)
+                                        .replace(/&quot;/g, "''") + "..."
+                                    : item.topic}
+                                </p>
+                                <p
+                                  style={{
+                                    // textAlign: "center",
+                                    marginLeft: "10px",
+                                    fontSize:
+                                      windowWidth < 768 ? "8px" : "12px",
+                                    marginBottom: "10px",
+                                  }}
+                                >
+                                  {item.topic.length > 50
+                                    ? item.topic
+                                        .substring(0, 50)
+                                        .replace(/&quot;/g, "''") +
+                                      "..." +
+                                      "..."
+                                    : item.topic}
+                                </p>
+                              </div>
+                            </Link>
+                          );
+                        })}
+                        <div
+                          style={{
+                            width: "100%",
+                            marginTop: "30px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Link to="/news">
+                            <button
+                              className="btn btn-outline btn-sm"
+                              //   onClick={handleShowMore}
+                              style={{
+                                backgroundColor: "#FFD700",
+                                color: "#000000",
+                                border: "none",
+                                borderRadius: "5px",
+                                padding: "5px 10px",
+                                cursor: "pointer",
+                                width: windowWidth < 768 ? "100%" : "auto",
+                                boxShadow: "0 0 5px #868686",
+                                fontSize: windowWidth < 768 ? "10px" : "14px",
+                              }}
+                            >
+                              ดูทั้งหมด
+                            </button>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {isVisible && (

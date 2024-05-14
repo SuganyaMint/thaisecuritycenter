@@ -78,7 +78,6 @@ model sub_banner {
   updatedAt DateTime @updatedAt
 }
 
-
 model company {
   id            Int      @id @default(autoincrement())
   company_id    String   @unique
@@ -110,6 +109,7 @@ model company {
   youtube       String
   ip            String
   hire          Int // จ้าง หรือ ฟรี  
+  IFrame_Google String   @db.LongText() // เปลี่ยนตรงนี้
   statusApprove String   @default("wait")
   approveDate   String
   createdAt     DateTime @default(now())
@@ -148,8 +148,8 @@ model contact_log {
   name      String
   email     String
   phone     String
-  detail    String
-  ip        String   @db.LongText() // เปลี่ยนตรงนี้
+  detail    String   @db.LongText()
+  ip        String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -168,7 +168,28 @@ model address {
   Region       String @db.VarChar(255)
   PostCodeMain String @db.VarChar(255)
   geocode      String @db.VarChar(255)
-  geoName     String @db.VarChar(255)
-  nearBKK     String @db.VarChar(255)
+  geoName      String @db.VarChar(255)
+  nearBKK      String @db.VarChar(255)
 }
 
+model article {
+  id          Int      @id @default(autoincrement())
+  article_id  String   @unique
+  module      String
+  module_cat  String
+  topic       String
+  page_name   String
+  description String   @db.LongText()
+  detail      String   @db.LongText()
+  keywords    String   @db.LongText()
+  sender      String
+  member_id   String
+  ip          String
+  visited     Int
+  picture     String
+  published   Int
+  hilight     Int
+  link        String
+  create_date DateTime @default(now())
+  last_update DateTime @updatedAt
+}

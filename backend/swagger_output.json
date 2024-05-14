@@ -723,6 +723,16 @@
         }
       }
     },
+    "/api/v1/company/top/ten": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/company/{{where{id:id}": {
       "delete": {
         "description": "",
@@ -1121,6 +1131,264 @@
         "responses": {
           "200": {
             "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/article/": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "module": {
+                  "example": "any"
+                },
+                "module_cat": {
+                  "example": "any"
+                },
+                "topic": {
+                  "example": "any"
+                },
+                "page_name": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "detail": {
+                  "example": "any"
+                },
+                "keywords": {
+                  "example": "any"
+                },
+                "sender": {
+                  "example": "any"
+                },
+                "member_id": {
+                  "example": "any"
+                },
+                "ip": {
+                  "example": "any"
+                },
+                "visited": {
+                  "example": "any"
+                },
+                "picture": {
+                  "example": "any"
+                },
+                "published": {
+                  "example": "any"
+                },
+                "hilight": {
+                  "example": "any"
+                },
+                "link": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/article/{article_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "article_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "article_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "article_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "module": {
+                  "example": "any"
+                },
+                "module_cat": {
+                  "example": "any"
+                },
+                "topic": {
+                  "example": "any"
+                },
+                "page_name": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                },
+                "detail": {
+                  "example": "any"
+                },
+                "keywords": {
+                  "example": "any"
+                },
+                "sender": {
+                  "example": "any"
+                },
+                "member_id": {
+                  "example": "any"
+                },
+                "ip": {
+                  "example": "any"
+                },
+                "visited": {
+                  "example": "any"
+                },
+                "published": {
+                  "example": "any"
+                },
+                "hilight": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/article/image/{article_id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "article_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/article/image": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "filename": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/article/news/items/{take}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "take",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/article/news/topten": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/article/{{where{article_id}": {
+      "delete": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
           }
         }
       }

@@ -56,3 +56,8 @@
   animation: shake-large 1s infinite; /* สร้างการเคลื่อนไหวโดยใช้ animation ที่กำหนดไว้ */
 }
 
+.divContainer img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

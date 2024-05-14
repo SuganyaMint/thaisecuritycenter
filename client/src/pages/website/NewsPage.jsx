@@ -1,40 +1,57 @@
 import React, { useState, useEffect } from "react";
 import API from "../../utils/ApiUrl";
 import { ApiRouter } from "../../utils/ApiRouter";
-
-import { Divider, Button, Space, Tag, Typography } from "antd";
-const { Title, Paragraph } = Typography;
+import image from "../../assets/image/banner12.jpeg";
+import topten from "../../assets/image/top-10.gif";
 import Swal from "sweetalert2";
-
-import TableComponent from "../../components/TableComponent/TableComponent";
+import {
+  DoubleLeftOutlined,
+  DoubleRightOutlined,
+  LeftOutlined,
+  RightOutlined,
+} from "@ant-design/icons";
+import { Link } from "react-router-dom";
 import SkeletonComponent from "../../components/SkeletonComponent/SkeletonComponent";
-import CreateNewsModel from "../../components/ModelComponent/CreateNewsModel";
-import ViewNewsModel from "../../components/ModelComponent/ViewNewsModel";
-import EditNewsModel from "../../components/ModelComponent/EditNewsModel";
-import UpdateStatusNewsModal from "../../components/ModelComponent/UpdateStatusNewsModal";
-import EditImageNewsModal from "../../components/ModelComponent/EditImageNewsModal";
 
-import UpdateOrderNewsModal from "../../components/ModelComponent/UpdateOrderNewsModal";
 function NewsPage() {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const [isSubmit, setIsSubmit] = useState(false);
+  const [dataTopTen, setDataTopTen] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
 
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await API.get(ApiRouter.NewsEvent);
-
+      const res = await API.get(ApiRouter.Article);
       if (res.data.status === true) {
         setLoading(false);
         if (res.data.data.length === 0) {
           setLoading(false);
-          setData(res.data.data);
         } else {
+          let dataArr = [];
+          res.data.data.map((item) => {
+            if (item.published === 1) {
+              dataArr.push(item);
+            }
+          });
+
+          setData(dataArr);
+
           const itemsWithImages = await Promise.all(
-            res.data.data.map(async (item) => {
+            dataArr.map(async (item) => {
               try {
                 const imageRes = await API.post(
-                  ApiRouter.NewsEventImage,
+                  ApiRouter.ArticleImage,
                   {
                     filename: item.link,
                   },
@@ -95,142 +112,400 @@ function NewsPage() {
       }
     };
     fetchData();
-    setIsSubmit(false);
-  }, [isSubmit]);
 
-  const handleDelete = async (id) => {
-    try {
-      Swal.fire({
-        title: "คุณแน่ใจหรือไม่ ?",
-        text: "คุณต้องการลบข้อมูลนี้จริงหรือไม่ ?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "ใช่, ฉันต้องการลบ",
-        cancelButtonText: "ยกเลิก",
-      }).then(async (result) => {
-        if (result.isConfirmed) {
-          const res = await API.delete(ApiRouter.NewsEvent + id);
-          if (res.data.status === true) {
+    const fetchData2 = async () => {
+      const res = await API.get(ApiRouter.ArticleTopTen);
+      if (res.data.status === true) {
+        setLoading(false);
+        if (res.data.data.length === 0) {
+          setLoading(false);
+        } else {
+          let dataArr = [];
+          res.data.data.map((item) => {
+            if (item.published === 1) {
+              dataArr.push(item);
+            }
+          });
+
+          setDataTopTen(dataArr);
+
+          const itemsWithImages = await Promise.all(
+            dataArr.map(async (item) => {
+              try {
+                const imageRes = await API.post(
+                  ApiRouter.ArticleImage,
+                  {
+                    filename: item.link,
+                  },
+                  {
+                    responseType: "arraybuffer",
+                  }
+                );
+                const blob = new Blob([imageRes.data], { type: "image/jpeg" });
+                const imageUrl = URL.createObjectURL(blob);
+                return {
+                  ...item,
+                  img: imageUrl,
+                  key: item.id,
+                };
+              } catch (error) {
+                console.error("Error fetching image:", error);
+                return item;
+              }
+            })
+          );
+          setDataTopTen(itemsWithImages);
+        }
+      } else {
+        Swal.fire({
+          title: "Error!",
+          text: "เกิดข้อผิดพลาด ไม่สามารถดึงข้อมูลได้ โปรดลองใหม่อีกครั้ง",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          cancelButtonText: "ยกเลิก",
+          confirmButtonText: "ลองใหม่อีกครั้ง",
+        }).then((result) => {
+          if (result.isConfirmed) {
             Swal.fire({
-              title: "ลบข้อมูลสำเร็จ !",
-              text: "คุณลบข้อมูลสำเร็จ",
-              icon: "success",
+              title: "กำลังโหลด",
+              text: "โปรดรอสักครู่...",
+              icon: "info",
+              showConfirmButton: false,
               allowOutsideClick: false,
             });
-            // setTimeout(() => {
-            //   window.location.reload();
-            // }, 1000);
-            setIsSubmit(true);
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
           } else {
             Swal.fire({
-              title: "ลบข้อมูลไม่สำเร็จ !",
-              text: "คุณลบข้อมูลไม่สำเร็จ",
-              icon: "error",
+              title: "กำลังยกเลิกและกลับสู่หน้าหลัก",
+              text: "โปรดรอสักครู่...",
+              icon: "info",
+              showConfirmButton: false,
               allowOutsideClick: false,
             });
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 1000);
           }
-        }
-      });
-    } catch (error) {
-      console.error(error);
-    }
+        });
+      }
+    };
+    fetchData2();
+  }, []);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+  const totalPages = Math.ceil(data.length / itemsPerPage);
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+
+  const nextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
   };
 
+  const prevPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
 
-  const columns = [
-    {
-      title: "Title",
-      dataIndex: "title",
-      key: "title",
-      align: "center",
-    },
-    {
-      title: "Sub title",
-      dataIndex: "subtitle",
-      key: "subtitle",
-      align: "center",
-    },
-    {
-      title: "image",
-      dataIndex: "image",
-      key: "image",
-      align: "center",
-      render: (_, record) => (
-        <>
-          <EditImageNewsModal img={record.img} id={record.id} />
-        </>
-      ),
-    },
-    {
-      title: "ลำดับ",
-      key: "order",
-      dataIndex: "order",
-      align: "center",
+  const goToPage = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
-      render: (_, record) => (
-        <>
-          <UpdateOrderNewsModal data={record} allData = {data}/>
-        </>
-      ),
-    },
-    {
-      title: "Status",
-      key: "status",
-      dataIndex: "status",
-      align: "center",
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+    let prevPageItem = windowWidth < 768 ? currentPage - 1 : currentPage - 2;
+    let nextPageItem = windowWidth < 768 ? currentPage + 1 : currentPage + 2;
+    for (
+      let i = Math.max(prevPageItem, 1);
+      i <= Math.min(nextPageItem, totalPages);
+      i++
+    ) {
+      pageNumbers.push(
+        <button
+          key={i}
+          onClick={() => goToPage(i)}
+          style={{
+            width: windowWidth < 786 ? "20px" : "30px",
+            fontSize: windowWidth < 786 ? "10px" : "16px",
+            border: "1px solid #E19D00",
+            borderRadius: "5px",
+            cursor: "pointer",
+            marginRight: "5px",
+            background: i === currentPage ? "#E19D00" : "none",
+            color: i === currentPage ? "white" : "#000", // เพิ่มสีข้อความในกรอบ
+          }}
+        >
+          {i}
+        </button>
+      );
+    }
+    return pageNumbers;
+  };
 
-      render: (_, record) => (
-        <>
-          <UpdateStatusNewsModal data={record}  />
-        </>
-      ),
-    },
-    {
-      title: "Action",
-      key: "action",
-      align: "center",
-      render: (_, record) => (
-        <Space size="middle">
-          <EditNewsModel
-            id={record.id}
-            description={record.description}
-            setIsSubmit={setIsSubmit}
-            title={record.title}
-            subtitle={record.subtitle}
-          />
-          <ViewNewsModel id={record.description} />
-          <Button type="primary" danger onClick={() => handleDelete(record.id)}>
-            Delete
-          </Button>
-        </Space>
-      ),
-    },
-  ];
   return (
     <>
       {loading ? (
-        <>
-          <SkeletonComponent />
-        </>
+        <SkeletonComponent />
       ) : (
-        <>
-          <Title level={2}>News Event Management</Title>
+        <div
+          style={{
+            width: "90%",
+            margin: "auto",
+            marginTop: "20px",
+            // border: "1px solid red",
+          }}
+        >
           <div
             style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              marginBottom: "20px",
+              width: "100%",
+              // height: "1000px",
+              justifyContent: "center",
+              alignItems: "center",
+              // border: "1px solid red",
             }}
           >
-            <CreateNewsModel setIsSubmit={setIsSubmit} data = {data}/>
+            <img
+              src={image}
+              style={{
+                width: "100%",
+              }}
+            ></img>
           </div>
-          <Divider />
-          <Paragraph>
-            <TableComponent columns={columns} data={data} />
-          </Paragraph>
-        </>
+          <p
+            style={{
+              fontSize: windowWidth < 768 ? "16px" : "24px",
+              fontWeight: "bold",
+              color: "#E19D00",
+              marginTop: "20px",
+            }}
+          >
+            ข่าวสาร และ สาระน่ารู้
+          </p>
+
+          <div className="divider"></div>
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4"
+            style={{
+              width: "100%",
+              height: "auto",
+              display: windowWidth < 768 ? null : "flex",
+            }}
+          >
+            <div
+              style={{
+                width: windowWidth < 768 ? "100%" : "80%",
+                height: "auto",
+              }}
+            >
+              {currentItems.map((item) => {
+                return (
+                  <Link key={item.id} to={`/news/${item.article_id}`}>
+                    <div
+                      key={item.id}
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        display: "flex",
+                        border: "2px solid #E19D00",
+                        marginTop: "10px",
+                        padding: "10px",
+                        borderRadius: "10px",
+                        boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+                      }}
+                    >
+                      <img
+                        src={item.img}
+                        style={{
+                          width: "30%",
+                          height: "auto",
+                        }}
+                      ></img>
+
+                      <div
+                        style={{
+                          width: "70%",
+                          height: "auto",
+
+                          marginLeft: "20px",
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: windowWidth < 768 ? "12px" : "24px",
+                            fontWeight: "bold",
+                            color: "#E19D00",
+                            marginTop: windowWidth < 768 ? "5px" : "20px",
+                          }}
+                        >
+                          {item.topic.replace(/&quot;/g, "''")}
+                        </p>
+                        <p
+                          style={{
+                            fontSize: windowWidth < 768 ? "10px" : "16px",
+                            marginTop: windowWidth < 768 ? "5px" : "10px",
+                          }}
+                        >
+                          {/* {item.description} */}
+                          {item.description.length > 100
+                            ? item.description
+                                .substring(0, 100)
+                                .replace(/&quot;/g, "''") + "..."
+                            : item.description}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  marginTop: "20px",
+                }}
+              >
+                <span>
+                  <DoubleLeftOutlined
+                    style={{
+                      fontSize: windowWidth < 768 ? "10px" : "16px",
+                    }}
+                  />
+                  <button
+                    onClick={() => goToPage(1)}
+                    disabled={currentPage === 1}
+                    style={{
+                      marginRight: "20px",
+                      fontSize: windowWidth < 768 ? "10px" : "16px",
+                    }}
+                  >
+                    หน้าแรก
+                  </button>
+                  <LeftOutlined
+                    style={{
+                      fontSize: windowWidth < 768 ? "10px" : "16px",
+                    }}
+                  />
+                  <button
+                    onClick={prevPage}
+                    disabled={currentPage === 1}
+                    style={{
+                      marginRight: "20px",
+                      fontSize: windowWidth < 768 ? "10px" : "16px",
+                    }}
+                  >
+                    ก่อนหน้า
+                  </button>
+                  {renderPageNumbers()}
+
+                  <button
+                    onClick={nextPage}
+                    disabled={currentPage === totalPages}
+                    style={{
+                      marginLeft: "20px",
+                      fontSize: windowWidth < 768 ? "10px" : "16px",
+                    }}
+                  >
+                    ต่อไป
+                  </button>
+                  <RightOutlined
+                    style={{
+                      fontSize: windowWidth < 768 ? "10px" : "16px",
+                    }}
+                  />
+                  <button
+                    onClick={() => goToPage(totalPages)}
+                    disabled={currentPage === totalPages}
+                    style={{
+                      marginLeft: "20px",
+                      fontSize: windowWidth < 768 ? "10px" : "16px",
+                    }}
+                  >
+                    หน้าสุดท้าย
+                  </button>
+                  <DoubleRightOutlined
+                    style={{
+                      fontSize: windowWidth < 768 ? "10px" : "16px",
+                    }}
+                  />
+                </span>
+              </div>
+            </div>
+
+            <div
+              style={{
+                width: windowWidth < 768 ? "100%" : "20%",
+                height: "auto",
+                //bg สีน้ำเงินเข้ม
+                backgroundColor: "#182F68",
+                marginLeft: windowWidth < 768 ? null : "30px",
+                padding: "10px",
+                borderRadius: "10px",
+              }}
+            >
+              <img src={topten}></img>
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-1 gap-1">
+                {dataTopTen.map((item) => {
+                  return (
+                    <Link key={item.id} to={`/news/${item.article_id}`}>
+                      <div
+                        key={item.id}
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          border: "2px solid #EAD713",
+                          marginTop: "10px",
+                          padding: "10px",
+                          borderRadius: "10px",
+                          boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+                        }}
+                      >
+                        <div
+                          style={{
+                            width: "auto",
+                            height: "auto",
+                          }}
+                        >
+                          <img
+                            src={item.img}
+                            style={{
+                              width: "100%",
+                              height: windowWidth < 768 ? "120px" : "auto",
+                            }}
+                          ></img>
+                        </div>
+
+                        <div
+                          style={{
+                            width: "100%",
+                            height: "auto",
+                            display: "flex",
+                            marginTop: windowWidth < 768 ? "15px" : "10px",
+                          }}
+                        >
+                          <p
+                            style={{
+                              fontSize: windowWidth < 768 ? "12px" : "14px",
+                              fontWeight: "bold",
+                              color: "#EAD713",
+                              textAlign: "center",
+                              margin: "auto",
+                            }}
+                          >
+                            {item.topic.replace(/&quot;/g, "''")}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );
