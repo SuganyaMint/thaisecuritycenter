@@ -124,7 +124,7 @@ function ShowNewMainPage() {
         }}
       >
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2"
+          className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-2"
           style={{
             width: "100%",
             display: windowWidth < 768 ? null : "flex",
@@ -134,26 +134,9 @@ function ShowNewMainPage() {
         >
           <div
             style={{
-              width: windowWidth < 768 ? "100%" : "30%",
+              width: windowWidth < 768 ? "100%" : "100%",
               height: "100%",
-              marginRight: "10px",
-            }}
-          >
-            <Link
-              to="https://www.facebook.com/thaisecure.ad?mibextid=JRoKGi"
-              target="_blank"
-            >
-              <img
-                src={windowWidth < 768 ? facebookImage2 : facebookImage}
-                alt="Facebook"
-              />
-            </Link>
-          </div>
-          <div
-            style={{
-              width: windowWidth < 768 ? "100%" : "70%",
-              height: "100%",
-              background: windowWidth < 768 ? null : "#000000",
+              // background: windowWidth < 768 ? null : "#000000",
               justifyContent: "center",
               alignItems: "center",
             }}
@@ -170,73 +153,109 @@ function ShowNewMainPage() {
           </div>
         </div>{" "}
         <div
-          className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-1"
           style={{
             width: "100%",
-            height: windowWidth < 768 ? "130px" : "220px",
-
+            // height: windowWidth < 768 ? "130px" : "220px",
+            height :"auto",
             justifyContent: "center",
-            marginTop: windowWidth < 768 ? "0px" : "20px",
+            marginTop: windowWidth < 768 ? "20px" : "20px",
             display: "flex",
           }}
         >
           <div
+            className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-1"
             style={{
               width: "100%",
               justifyContent: "center",
               alignItems: "center",
-              // border: "1px solid red",
               height: "100%",
-              display: "flex",
+              display: windowWidth < 768 ? null : "flex",
             }}
           >
-            {data.map((item) => {
-              return (
-                <Link  key = {item.id} to={`/news/${item.article_id}`}>
-                  <div key={item.id}>
-                    <img
-                      src={item.img}
-                      style={{
-                        width: "100%",
-                        height: "auto",
-                        padding: "5px",
-                      }}
-                    />
-                    <p
-                      style={{
-                        // textAlign: "center",
-                        marginLeft: "10px",
-                        fontSize: windowWidth < 768 ? "10px" : "16px",
-                        fontWeight: "bold",
-                        // สีเหลือง
-                        color: "#E19D00",
-                      }}
-                    >
-                      {item.topic.length > 30
-                        ? item.topic.substring(0, 30).replace(/&quot;/g, "''") + "..."+ "..."
-                        : item.topic}
-                    </p>
-                    <p
-                      style={{
-                        // textAlign: "center",
-                        marginLeft: "10px",
-                        fontSize: windowWidth < 768 ? "8px" : "12px",
-                      }}
-                    >
-                      {item.topic.length > 50
-                        ? item.topic.substring(0, 50).replace(/&quot;/g, "''") + "..." + "..."
-                        : item.topic}
-                    </p>
-                  </div>
-                </Link>
-              );
-            })}
+            <div
+              style={{
+                width: windowWidth < 768 ? "100%" : "30%",
+                height: "100%",
+                marginRight: "10px",
+              }}
+            >
+              <Link
+                to="https://www.facebook.com/thaisecure.ad?mibextid=JRoKGi"
+                target="_blank"
+              >
+                <img
+                  src={windowWidth < 768 ? facebookImage2 : facebookImage}
+                  alt="Facebook"
+                />
+              </Link>
+            </div>
+
+            <div
+              className="grid grid-cols-4 md:grid-cols-4 lg:grid-cols-4 gap-1"
+              style={{
+                width: windowWidth < 768 ? "100%" : "70%",
+                height: "100%",
+                marginRight: "10px",
+              }}
+            >
+              {data.map((item) => {
+                return (
+                  <Link key={item.id} to={`/news/${item.article_id}`}>
+                    <div key={item.id}>
+                      <img
+                        src={item.img}
+                        style={{
+                          width: "100%",
+                          height: "auto",
+                          padding: "5px",
+                        }}
+                      />
+                      <p
+                        style={{
+                          // textAlign: "center",
+                          marginLeft: "10px",
+                          fontSize: windowWidth < 768 ? "10px" : "16px",
+                          fontWeight: "bold",
+                          // สีเหลือง
+                          color: "#E19D00",
+                        }}
+                      >
+                        {item.topic.length > 30
+                          ? item.topic
+                              .substring(0, 30)
+                              .replace(/&quot;/g, "''") +
+                            "..." +
+                            "..."
+                          : item.topic}
+                      </p>
+                      <p
+                        style={{
+                          // textAlign: "center",
+                          marginLeft: "10px",
+                          fontSize: windowWidth < 768 ? "8px" : "12px",
+                        }}
+                      >
+                        {item.topic.length > 50
+                          ? item.topic
+                              .substring(0, 50)
+                              .replace(/&quot;/g, "''") +
+                            "..." +
+                            "..."
+                          : item.topic}
+                      </p>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
           </div>
+          
         </div>
         <div
           style={{
             width: "100%",
-            marginTop: "30px",
+            height: "auto",
+            marginTop:  windowWidth < 768 ? null : "30px",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -244,7 +263,7 @@ function ShowNewMainPage() {
         >
           <Link to="/news">
             <button
-              className="btn btn-outline btn-sm"
+              // className="btn btn-outline btn-sm"
               //   onClick={handleShowMore}
               style={{
                 backgroundColor: "#FFD700",
@@ -253,9 +272,10 @@ function ShowNewMainPage() {
                 borderRadius: "5px",
                 padding: "5px 10px",
                 cursor: "pointer",
-                width: windowWidth < 768 ? "100%" : "auto",
+                width: windowWidth < 768 ? "70px" : "auto",
+                height: windowWidth < 768 ? "20px" : "auto",
                 boxShadow: "0 0 5px #868686",
-                fontSize: windowWidth < 768 ? "10px" : "16px",
+                fontSize: windowWidth < 768 ? "8px" : "16px",
               }}
             >
               ดูทั้งหมด

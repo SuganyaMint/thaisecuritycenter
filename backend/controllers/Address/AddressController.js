@@ -198,6 +198,41 @@ const getAmphoeInBKK = async (req, res) => {
   }
 };
 
+const getNameDetail = async (req, res) => {
+  try {
+    const TambonID = req.params.TambonID;
+    const getAddress = await prisma.address.findMany({
+      where: {
+        TambonID: TambonID,
+      },
+    });
+
+    const data = {
+      TambonID: getAddress[0].TambonID,
+      TambonThai: getAddress[0].TambonThai,
+      AmphoeID: getAddress[0].AmphoeID,
+      AmphoeThai: getAddress[0].AmphoeThai,
+      ProvinceID: getAddress[0].ProvinceID,
+      ProvinceThai: getAddress[0].ProvinceThai,
+      PostCodeMain: getAddress[0].PostCodeMain,
+    }
+
+    res.json({
+      status: true,
+      message: "Success",
+      data: data,
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.json({
+      status: false,
+      message: "Error",
+      error: error.message,
+    });
+  }
+}
+
 module.exports = {
   getPronvinces,
   getAmphoeByProvinceID,
@@ -205,4 +240,5 @@ module.exports = {
   getAddressesByGeo,
   getNearBKK,
   getAmphoeInBKK,
+  getNameDetail
 };

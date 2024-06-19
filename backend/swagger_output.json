@@ -500,9 +500,80 @@
       },
       "post": {
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "company_name": {
+                  "example": "any"
+                },
+                "keyword": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "district": {
+                  "example": "any"
+                },
+                "amphoe": {
+                  "example": "any"
+                },
+                "province": {
+                  "example": "any"
+                },
+                "zipcode": {
+                  "example": "any"
+                },
+                "phone": {
+                  "example": "any"
+                },
+                "mobile": {
+                  "example": "any"
+                },
+                "fax": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "website": {
+                  "example": "any"
+                },
+                "facebook": {
+                  "example": "any"
+                },
+                "line": {
+                  "example": "any"
+                },
+                "twitter": {
+                  "example": "any"
+                },
+                "instagram": {
+                  "example": "any"
+                },
+                "tiktok": {
+                  "example": "any"
+                },
+                "youtube": {
+                  "example": "any"
+                },
+                "ip": {
+                  "example": "any"
+                },
+                "member_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -733,6 +804,312 @@
         }
       }
     },
+    "/api/v1/company/amphoe/{amphoe}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "amphoe",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/company/province/{province}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "province",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/company/map/{company_id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "laditude": {
+                  "example": "any"
+                },
+                "longitude": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/company/desc/{company_id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "description": {
+                  "example": "any"
+                },
+                "detail": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/company/member/{member_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "member_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/company/company/{company_id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/company/image/{company_id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "order": {
+                  "example": "any"
+                },
+                "status": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/v1/company/detail/{company_id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "company_name": {
+                  "example": "any"
+                },
+                "keyword": {
+                  "example": "any"
+                },
+                "address": {
+                  "example": "any"
+                },
+                "province": {
+                  "example": "any"
+                },
+                "amphoe": {
+                  "example": "any"
+                },
+                "district": {
+                  "example": "any"
+                },
+                "zipcode": {
+                  "example": "any"
+                },
+                "phone": {
+                  "example": "any"
+                },
+                "mobile": {
+                  "example": "any"
+                },
+                "fax": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "website": {
+                  "example": "any"
+                },
+                "facebook": {
+                  "example": "any"
+                },
+                "line": {
+                  "example": "any"
+                },
+                "twitter": {
+                  "example": "any"
+                },
+                "instagram": {
+                  "example": "any"
+                },
+                "tiktok": {
+                  "example": "any"
+                },
+                "youtube": {
+                  "example": "any"
+                },
+                "ip": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/company/image/one/{id}": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/company/image/{id}": {
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/company/{{where{id:id}": {
       "delete": {
         "description": "",
@@ -774,9 +1151,6 @@
                   "example": "any"
                 },
                 "detail": {
-                  "example": "any"
-                },
-                "ip": {
                   "example": "any"
                 }
               }
@@ -912,7 +1286,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "email": {
+                "userName": {
                   "example": "any"
                 },
                 "password": {
@@ -1128,6 +1502,24 @@
     "/api/v1/address/amphoeinbkk": {
       "get": {
         "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/address/all/detail/by_tambon/{TambonID}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "TambonID",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

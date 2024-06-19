@@ -40,10 +40,10 @@ function HomePage() {
       <BannerComponent />
       <GuideComponent numImages={8} />
       <ShowNewMainPage />
-      {/* <TopCompany /> */}
+      <TopCompany />
       {isVisible && (
         <span
-          className="fixed bottom-20 right-20 block bg-yellow-400 hover:bg-yellow-500 text-white rounded-full w-10 h-10 flex items-center justify-center cursor-pointer transition-colors duration-300 opacity-50 hover:opacity-100"
+          className="fixed bottom-20 right-10 block bg-yellow-400 hover:bg-yellow-500 text-white rounded-full w-10 h-10 flex items-center justify-center cursor-pointer transition-colors duration-300 opacity-50 hover:opacity-100"
           onClick={scrollToTop}
         >
           <UpCircleOutlined style={{ fontSize: "24px" }} />

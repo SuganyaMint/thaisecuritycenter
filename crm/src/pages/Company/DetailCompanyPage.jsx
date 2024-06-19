@@ -118,10 +118,6 @@ function DetailCompanyPage(props) {
       console.error(error);
     }
   };
-  console.log(province);
-  console.log(amphoe);
-  console.log(district);
-  console.log(zipcode);
 
   return (
     <div>

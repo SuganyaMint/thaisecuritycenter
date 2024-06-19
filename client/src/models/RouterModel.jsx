@@ -11,6 +11,9 @@ import SearchCompanyPage from "../pages/SearchCompanyPage";
 import NewsPage from "../pages/website/NewsPage";
 import NewsDetailPage from "../pages/website/NewsDetailPage";
 import DetailCompanyPage from "../pages/Company/DetailCompanyPage";
+import SearchCompanyIdPage from "../pages/Company/SearchCompanyIdPage";
+import RegisterMemberPage from "../pages/Member/RegisterMemberPage";
+import LoginMember from "../pages/Member/LoginMember";
 
 export const RouterModel = [
   {
@@ -41,7 +44,7 @@ export const RouterModel = [
   {
     id: 5,
     routerName: "Contact_Me",
-    routerPath: "/contact_me",
+    routerPath: "/contact",
     routerComponent: <ContactMePage />,
   },
   {
@@ -92,4 +95,23 @@ export const RouterModel = [
     routerPath: "/company",
     routerComponent: <CompanyPage />,
   },
+  {
+    id: 15,
+    routerName: "CompanyID",
+    routerPath: "/company/area/:type/:area",
+    routerComponent: <SearchCompanyIdPage />,
+  },
+  {
+    id: 16,
+    routerName: "RegisterMember",
+    routerPath: "/register-member",
+    routerComponent: <RegisterMemberPage />,
+  },
+  {
+    id: 17,
+    routerName: "LoginMember",
+    routerPath: "/login-member",
+    routerComponent: <LoginMember />,
+  },
 ];
+;

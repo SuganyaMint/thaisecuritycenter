@@ -15,6 +15,7 @@ function ContactMePage() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await API.get(ApiRouter.ContactMe);
+      
       if (res.data.status === true) {
         setLoading(false);
         setData(res.data.data);

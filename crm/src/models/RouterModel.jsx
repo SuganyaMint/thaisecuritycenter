@@ -74,7 +74,7 @@ export const RouterModel = [
   },
   {
     id: 11,
-    routerName: "MainDetailCompany",
+    routerName: "SubBanner",
     routerPath: "/subbanner",
     routerComponent: <SubBannerPage />,
   },

@@ -38,6 +38,7 @@ function SubBannerComponent(props) {
                     responseType: "arraybuffer",
                   }
                 );
+
                 const blob = new Blob([imageRes.data], { type: "image/jpeg" });
                 const imageUrl = URL.createObjectURL(blob);
                 return {

@@ -2,7 +2,6 @@ const pool = require("../../configs/dbconfig");
 
 const ChangePass = async (req, res) => {
   try {
-    console.log(req.body);
     const { userid, account_id, email, user_pass, new_pass } = req.body;
 
     // check email

@@ -52,7 +52,7 @@ function GuideComponent(props) {
             <div
               className="card-body "
               style={{
-                width:"100%",
+                width: "100%",
                 height: "170px",
                 marginTop: "-20px",
               }}
@@ -82,14 +82,14 @@ function GuideComponent(props) {
 
               <div
                 style={{
-                  height: "50px",
+                  height: "auto",
                   display: "flex",
                   justifyContent: " right",
                   alignItems: "right",
                 }}
               >
                 <button
-                  className="btn btn-active btn-sm"
+                  // className="btn btn-active btn-sm"
                   style={{
                     backgroundColor: "#FFD700",
                     color: "#000000",
@@ -98,6 +98,7 @@ function GuideComponent(props) {
                     padding: "5px 10px",
                     cursor: "pointer",
                     width: windowWidth < 768 ? "50px" : "100px",
+                    height: windowWidth < 768 ? "20px" : "30px",
                     fontSize: windowWidth < 768 ? "7px" : "12px",
                     position: "absolute",
                     bottom: 10,
@@ -173,7 +174,7 @@ function GuideComponent(props) {
         >
           {!showAll ? (
             <button
-              className="btn btn-outline btn-sm mt-10 transition"
+              // className="btn btn-outline btn-sm mt-10 transition"
               onClick={handleShowMore}
               style={{
                 backgroundColor: "#FFD700",
@@ -182,15 +183,18 @@ function GuideComponent(props) {
                 borderRadius: "5px",
                 padding: "5px 10px",
                 cursor: "pointer",
-                width: "100px",
+                width: windowWidth < 768 ? "70px" : "auto",
+                height: windowWidth < 768 ? "20px" : "auto",
                 boxShadow: "0 0 5px #868686",
+                marginTop: "10px",
+                fontSize: windowWidth < 768 ? "8px" : "16px",
               }}
             >
               ดูทั้งหมด
             </button>
           ) : (
             <button
-              className="btn btn-outline btn-warning btn-sm mt-10"
+              // className="btn btn-outline btn-warning btn-sm mt-10"
               onClick={handleShowLess}
               style={{
                 backgroundColor: "#FFD700",
@@ -199,8 +203,12 @@ function GuideComponent(props) {
                 borderRadius: "5px",
                 padding: "5px 10px",
                 cursor: "pointer",
-                width: "100px",
+                width: windowWidth < 768 ? "70px" : "auto",
+                height: windowWidth < 768 ? "20px" : "auto",
                 boxShadow: "0 0 5px #868686",
+                marginTop: "10px",
+                fontSize: windowWidth < 768 ? "8px" : "16px",
+
               }}
             >
               ย่อ

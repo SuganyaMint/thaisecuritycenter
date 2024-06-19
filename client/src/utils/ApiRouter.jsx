@@ -1,4 +1,5 @@
 export const ApiRouter = {
+
   // login admin
   login: "/api/login",
   authen: "/api/login/authen",
@@ -38,6 +39,9 @@ export const ApiRouter = {
 
   CompanyClient: "/api/v1/company/show/to/client",
   CompanyTopTen : "/api/v1/company/top/ten",
+
+  CompanyByAmphoe : "/api/v1/company/amphoe/",
+  CompanyByProvince : "/api/v1/company/province/",
 
   //Address
   Pronvinces: "/api/v1/address/pronvinces",

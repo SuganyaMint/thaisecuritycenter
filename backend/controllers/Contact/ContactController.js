@@ -4,6 +4,13 @@ const moment = require("moment");
 
 const createContact_me = async (req, res) => {
   try {
+    let ip = req.clientIp;
+    // Check if the IP address is IPv6 loopback and convert to IPv4 loopback
+    if (ip === "::1") {
+      ip = "127.0.0.1";
+    }
+
+
     const result = await prisma.contact_me.create({
       data: {
         company: req.body.company,
@@ -11,7 +18,7 @@ const createContact_me = async (req, res) => {
         email: req.body.email,
         phone: req.body.phone,
         detail: req.body.detail,
-        ip: req.body.ip == undefined ? "" : req.body.ip,
+        ip: ip
       },
     });
     res.json({

@@ -15,7 +15,7 @@ const register_member = async (req, res) => {
     if (checkUserName.length > 0) {
       res.json({
         status: false,
-        message: "User name already exists",
+        message: "Email already exists",
       });
       return;
     }

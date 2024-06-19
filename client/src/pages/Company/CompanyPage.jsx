@@ -35,7 +35,6 @@ function CompanyPage() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await API.get(ApiRouter.CompanyLogo);
-      console.log(res.data.data);
       if (res.data.status === true) {
         // setLoading(false);
         if (res.data.data.length === 0) {
@@ -537,6 +536,8 @@ function CompanyPage() {
                 })}
               </div>
             </div>
+
+            
           </div>
         </div>
       )}

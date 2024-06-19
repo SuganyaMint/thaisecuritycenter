@@ -6,7 +6,8 @@ import { UpCircleOutlined } from "@ant-design/icons";
 import SkeletonComponent from "../components/SkeletonComponent/SkeletonComponent";
 import SubBannerComponent from "../components/BannerComponent/SubBannerComponent";
 import { Link } from "react-router-dom";
-import { withConfirm } from "antd/es/modal/confirm";
+import Swal from "sweetalert2";
+import CompanyPage from "./Company/CompanyPage";
 function SearchCompanyPage() {
   const [loading, setLoading] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -222,7 +223,7 @@ function SearchCompanyPage() {
                 width: "100%",
                 display: windowWidth < 768 ? null : "flex",
                 justifyContent: "center",
-                border: "1px solid blue",
+                // border: "1px solid blue",
               }}
             >
               <div
@@ -231,7 +232,7 @@ function SearchCompanyPage() {
                   marginTop: "10px",
                   marginBottom: "20px",
                   justifyContent: "center",
-                  border: "1px solid red",
+                  // border: "1px solid red",
 
                   width: windowWidth < 768 ? "100%" : "80%",
                   height: "auto",
@@ -283,39 +284,43 @@ function SearchCompanyPage() {
                     return (
                       <div key={index}>
                         {index % 2 === 0 ? (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
-                          >
+                          <Link to={`/company/area/bkk/${item.AmphoeID}`}>
                             <p
-                              className="text-black hover:text-amber-500 cursor-pointer"
-                              style={{
-                                fontSize: windowWidth < 768 ? "12px" : "16px",
-                              }}
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย เขต {item.AmphoeThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย เขต {item.AmphoeThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
                             </p>
-                          </p>
+                          </Link>
                         ) : (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
-                          >
+                          <Link to={`/company/area/bkk/${item.AmphoeID}`}>
                             <p
-                              style={{
-                                fontSize: windowWidth < 768 ? "12px" : "16px",
-                              }}
-                              className="text-black hover:text-amber-500 cursor-pointer"
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย เขต {item.AmphoeThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
+                              <p
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                              >
+                                » บริษัทรักษาความปลอดภัย เขต {item.AmphoeThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
                             </p>
-                          </p>
+                          </Link>
                         )}
                       </div>
                     );
@@ -343,37 +348,47 @@ function SearchCompanyPage() {
                     return (
                       <div key={index}>
                         {index % 2 === 0 ? (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
                             </p>
-                          </p>
+                          </Link>
                         ) : (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                            
-                            style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}>
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
-                            </p>
-                          </p>
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
+                            >
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
+                            </p>{" "}
+                          </Link>
                         )}
                       </div>
                     );
@@ -400,37 +415,47 @@ function SearchCompanyPage() {
                     return (
                       <div key={index}>
                         {index % 2 === 0 ? (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
                             </p>
-                          </p>
+                          </Link>
                         ) : (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
                             </p>
-                          </p>
+                          </Link>
                         )}
                       </div>
                     );
@@ -455,37 +480,47 @@ function SearchCompanyPage() {
                     return (
                       <div key={index}>
                         {index % 2 === 0 ? (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
-                            </p>
-                          </p>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
+                            </p>{" "}
+                          </Link>
                         ) : (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
                             </p>
-                          </p>
+                          </Link>
                         )}
                       </div>
                     );
@@ -510,37 +545,47 @@ function SearchCompanyPage() {
                     return (
                       <div key={index}>
                         {index % 2 === 0 ? (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
-                            </p>
-                          </p>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
+                            </p>{" "}
+                          </Link>
                         ) : (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
                             </p>
-                          </p>
+                          </Link>
                         )}
                       </div>
                     );
@@ -566,37 +611,47 @@ function SearchCompanyPage() {
                     return (
                       <div key={index}>
                         {index % 2 === 0 ? (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
                             </p>
-                          </p>
+                          </Link>
                         ) : (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
                             </p>
-                          </p>
+                          </Link>
                         )}
                       </div>
                     );
@@ -622,37 +677,47 @@ function SearchCompanyPage() {
                     return (
                       <div key={index}>
                         {index % 2 === 0 ? (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
                             </p>
-                          </p>
+                          </Link>
                         ) : (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
                             </p>
-                          </p>
+                          </Link>
                         )}
                       </div>
                     );
@@ -682,33 +747,43 @@ function SearchCompanyPage() {
                             className="text-black
                       hover:text-amber-500 cursor-pointer"
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <Link
+                              to={`/company/area/pronvinces/${item.ProvinceID}`}
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
-                            </p>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>{" "}
+                            </Link>
                           </p>
                         ) : (
-                          <p
-                            className="text-black
-                      hover:text-amber-500 cursor-pointer"
+                          <Link
+                            to={`/company/area/pronvinces/${item.ProvinceID}`}
                           >
-                            <p className="text-black hover:text-amber-500 cursor-pointer"
-                             style={{
-                              fontSize: windowWidth < 768 ? "12px" : "16px",
-                            }}
+                            <p
+                              className="text-black
+                      hover:text-amber-500 cursor-pointer"
                             >
-                              » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
-                              <span className="text-gray-300">
-                                ({item.count})
-                              </span>
+                              <p
+                                className="text-black hover:text-amber-500 cursor-pointer"
+                                style={{
+                                  fontSize: windowWidth < 768 ? "12px" : "16px",
+                                }}
+                              >
+                                » บริษัทรักษาความปลอดภัย {item.ProvinceThai}{" "}
+                                <span className="text-gray-300">
+                                  ({item.count})
+                                </span>
+                              </p>
                             </p>
-                          </p>
+                          </Link>
                         )}
                       </div>
                     );
@@ -723,7 +798,7 @@ function SearchCompanyPage() {
                     marginTop: "10px",
                     marginBottom: "20px",
                     justifyContent: "center",
-                    border: "1px solid red",
+                    // border: "1px solid red",
                     width: windowWidth < 768 ? "100%" : "20%",
                     height: "auto",
                   }}

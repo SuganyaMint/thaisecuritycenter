@@ -6,9 +6,9 @@ const secret = process.env.JWT_SECRET;
 
 
 const login_member = async (req, res) => {
-  
+
   try {
-    let email = req.body.email;
+    let email = req.body.userName;
     let password = req.body.password;
 
     let user = await prisma.member.findMany({
@@ -54,7 +54,6 @@ const login_member = async (req, res) => {
 };
 
 const authen_member = async (req, res) => {
-  console.log(req.headers.authorization);
   try {
     let token = req.headers.authorization.split(" ")[1];
     let decoded = JWT.verify(token, secret);
@@ -64,8 +63,10 @@ const authen_member = async (req, res) => {
           id: parseInt(decoded.id),
         },
       });
+    
       if (user) {
         let data = {
+          id: user.id,
           email: user.email,
           name: user.name,
           surname: user.surname,

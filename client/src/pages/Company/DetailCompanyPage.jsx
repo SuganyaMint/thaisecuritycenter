@@ -549,7 +549,7 @@ function DetailCompanyPage() {
                       fontSize: windowWidth < 768 ? "12px" : "16px",
                     }}
                   >
-                    แฟกซ์ :
+                    Line :
                   </p>
                 </div>
                 <div
@@ -563,9 +563,52 @@ function DetailCompanyPage() {
                       fontSize: windowWidth < 768 ? "12px" : "16px",
                     }}
                   >
-                    {data.fax}
+                    {data.line}
                   </p>
                 </div>
+                
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  width: "100%",
+                  margin: "auto",
+                  marginBottom: "10px",
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    width: "20%",
+                    height: "auto",
+                    right: "0",
+                  }}
+                >
+                  <p
+                    style={{
+                      color: "#E48A00",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
+                    }}
+                  >
+                    Tiktok :
+                  </p>
+                </div>
+                <div
+                  style={{
+                    width: "80%",
+                  }}
+                >
+                  <p
+                    style={{
+                      marginLeft: "10px",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
+                    }}
+                  >
+                    {data.tiktok}
+                  </p>
+                </div>
+                
               </div>
               <div
                 style={{

@@ -31,7 +31,6 @@ function NavbarComponent() {
     };
   }, []);
 
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -45,58 +44,58 @@ function NavbarComponent() {
       }}
     >
       <div className="navbar bg-yellow-500 ">
-      <div className="navbar-start flex-start">
-      <div className="dropdown">
-        <div
-          tabIndex={0}
-          role="button"
-          className="btn btn-ghost lg:hidden text-white"
-          onClick={toggleMenu}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h8m-8 6h16"
-            />
-          </svg>
+        <div className="navbar-start flex-start">
+          <div className="dropdown">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-ghost lg:hidden text-white"
+              onClick={toggleMenu}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />
+              </svg>
+            </div>
+            {isMenuOpen && (
+              <ul
+                tabIndex={0}
+                className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <Link to="/" onClick={toggleMenu}>
+                  <li>
+                    <a>หน้าหลัก</a>
+                  </li>
+                </Link>
+                <Link to="/searchcompany" onClick={toggleMenu}>
+                  <li>
+                    <a> ค้นหาบริษัท รปภ.</a>
+                  </li>
+                </Link>
+                <Link to="/advertise" onClick={toggleMenu}>
+                  <li>
+                    <a>โฆษณากับเรา</a>
+                  </li>
+                </Link>
+                <Link to="/contact" onClick={toggleMenu}>
+                  <li>
+                    <a>ติดต่อเรา</a>
+                  </li>
+                </Link>
+              </ul>
+            )}
+          </div>
         </div>
-        {isMenuOpen && (
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
-          >
-            <Link to="/" onClick={toggleMenu}>
-              <li>
-                <a>หน้าหลัก</a>
-              </li>
-            </Link>
-            <Link to="/searchcompany" onClick={toggleMenu}>
-              <li>
-                <a> ค้นหาบริษัท รปภ.</a>
-              </li>
-            </Link>
-            <Link to="/advertise" onClick={toggleMenu}>
-              <li>
-                <a>โฆษณากับเรา</a>
-              </li>
-            </Link>
-            <Link to="/contact" onClick={toggleMenu}>
-              <li>
-                <a>ติดต่อเรา</a>
-              </li>
-            </Link>
-          </ul>
-        )}
-      </div>
-    </div>
         {/* <div className="navbar-center hidden lg:flex"> */}
 
         <div className="navbar-center hidden lg:flex flex-start">
@@ -165,16 +164,66 @@ function NavbarComponent() {
 
         {windowWidth < 768 ? (
           <>
-            <div className="navbar-end mr-6">
-              <SearchComponent />
-              <UserOutlined
+            <div className="navbar-end">
+              {/* <div
                 style={{
                   color: "#FFFFFF",
                   fontSize: "24px",
-                  marginRight: "-10px",
-                  marginLeft: "20px",
+                  right: 50,
+                  position: "absolute",
                 }}
-              />
+              >
+                <SearchComponent />
+              </div> */}
+
+              <div className="navbar-start">
+                <div className="dropdown">
+                  <div
+                    tabIndex={0}
+                    role="button"
+                    className="btn btn-ghost btn-circle"
+                  >
+                    <UserOutlined
+                      style={{
+                        color: "#FFFFFF",
+                        fontSize: "24px",
+                        right: -40,
+                        position: "absolute",
+                      }}
+                    />
+
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M4 6h16M4 12h16M4 18h7"
+                    />
+                  </div>
+                  <ul
+                    tabIndex={0}
+                    className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-40"
+                    style={{
+                      right: -40,
+                      left: "auto",
+                      position: "absolute",
+                    }}
+                  >
+                    <li>
+                      <a
+                        href="https://thaisecuritycenter-member.suganya-profiles.com/"
+                        target="_blank"
+                      >
+                        เข้าสู่ระบบ
+                      </a>{" "}
+                    </li>
+                    <li>
+                      <Link to="/register-member">
+                        <a>สมัครสมาชิก</a>
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </>
         ) : (
@@ -201,6 +250,7 @@ function NavbarComponent() {
                   height: "auto",
                   // border: "1px solid #FFFFFF",
                   marginRight: "-20px",
+                  display: "flex",
                 }}
               >
                 <UserOutlined
@@ -220,10 +270,56 @@ function NavbarComponent() {
                       activeLink === "เข้าสู่ระบบ" ? "white" : "",
                   }}
                   onClick={handleClick}
-                  // href="/login"
-                  // className="btn btn-ghost"
                 >
-                  เข้าสู่ระบบ / สมัครสมาชิก
+                  <div
+                    style={{
+                      display: "flex",
+                    }}
+                  >
+                    <p>
+                      {" "}
+                      <a
+                        href="https://thaisecuritycenter-member.suganya-profiles.com/"
+                        target="_blank"
+                      >
+                        เข้าสู่ระบบ /
+                      </a>{" "}
+                    </p>
+
+                    <a
+                      href="https://thaisecuritycenter-member.suganya-profiles.com/register"
+                      target="_blank"
+                    >
+                      <p>สมัครสมาชิก </p>
+                    </a>
+                  </div>
+                </a>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginLeft: "10px",
+                }}
+              >
+                <a
+                  href="https://thaisecuritycenter-member.suganya-profiles.com/register"
+                  target="_blank"
+                >
+                  <button
+                    className="bg-orange-500 hover:bg-orange-600 text-white font-bold shadow-lg hover:shadow-xl transition duration-300 ease-in-out"
+                    style={{
+                      width: "120px",
+                      height: "40px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: "10px",
+                    }}
+                  >
+                    ลงประกาศฟรี
+                  </button>
                 </a>
               </div>
             </div>

@@ -14,7 +14,17 @@ const {
   getDataLogoImage,
   changeHire,
   getCompanyClient,
-  toptenCompany
+  toptenCompany,
+  getCompanyByAmphoe,
+  getCompanyByProvince,
+  updateMap,
+  getCompanyByMemberId,
+  getCompany_COMPANYID,
+  updateDescription,
+  updateAllImage,
+  deleteImageByID, updateOneImageCompany,
+  updateDetail
+
 } = require("../../controllers/Company/CompanyController");
 
 router.get("/", getCompany);
@@ -32,6 +42,22 @@ router.put("/star/:id", fixStart);
 router.put("/hire/:id", changeHire);
 
 router.get("/top/ten", toptenCompany);
+router.get("/amphoe/:amphoe", getCompanyByAmphoe);
+router.get("/province/:province", getCompanyByProvince);
+
+router.put("/map/:company_id", updateMap);
+router.put("/desc/:company_id", updateDescription);
+
+router.get("/member/:member_id", getCompanyByMemberId);
+router.get("/company/:company_id", getCompany_COMPANYID);
+
+router.put("/image/:company_id", updateAllImage);
+router.put("/detail/:company_id", updateDetail);
+router.put("/image/one/:id", updateOneImageCompany);
+
+
+router.delete("/image/:id", deleteImageByID);
+
 
 
 module.exports = router;

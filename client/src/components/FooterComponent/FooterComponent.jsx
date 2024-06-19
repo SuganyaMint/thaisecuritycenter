@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 const { Footer } = Layout;
 import logo from "../../assets/icon/logonew.png";
 import { PhoneFilled, MailFilled } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 function FooterComponent() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -41,38 +42,46 @@ function FooterComponent() {
             marginTop: "10px",
           }}
         >
-          <p
-            style={{
-              fontSize: windowWidth < 768 ? "12px" : "16px",
-              color: "#686868",
-            }}
-          >
-            หน้าหลัก |
-          </p>
-          <p
-            style={{
-              fontSize: windowWidth < 768 ? "12px" : "16px",
-              color: "#686868",
-            }}
-          >
-            ค้นหา |
-          </p>
-          <p
-            style={{
-              fontSize: windowWidth < 768 ? "12px" : "16px",
-              color: "#686868",
-            }}
-          >
-            โฆษณากับเรา |
-          </p>
-          <p
-            style={{
-              fontSize: windowWidth < 768 ? "12px" : "16px",
-              color: "#686868",
-            }}
-          >
-            ติดต่อเรา
-          </p>
+          <Link to="/">
+            <p
+              style={{
+                fontSize: windowWidth < 768 ? "12px" : "16px",
+                color: "#686868",
+              }}
+            >
+              หน้าหลัก |
+            </p>
+          </Link>
+          <Link to="/searchcompany">
+            <p
+              style={{
+                fontSize: windowWidth < 768 ? "12px" : "16px",
+                color: "#686868",
+              }}
+            >
+              ค้นหา |
+            </p>
+          </Link>
+          <Link to="/advertise">
+            <p
+              style={{
+                fontSize: windowWidth < 768 ? "12px" : "16px",
+                color: "#686868",
+              }}
+            >
+              โฆษณากับเรา |
+            </p>
+          </Link>
+          <Link to="/contact">
+            <p
+              style={{
+                fontSize: windowWidth < 768 ? "12px" : "16px",
+                color: "#686868",
+              }}
+            >
+              ติดต่อเรา
+            </p>
+          </Link>
         </div>
       </div>
 
@@ -261,8 +270,9 @@ function FooterComponent() {
                 >
                   <p
                     style={{
-                      fontSize: windowWidth < 768 ? "14px" : "20px",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
                       // marginBottom: windowWidth < 768 ? "14px" : "20px","10px",
+                      color: "#686868",
                     }}
                   >
                     Thai Security ยินดีให้บริการ
@@ -284,7 +294,8 @@ function FooterComponent() {
                   />{" "}
                   <p
                     style={{
-                      fontSize: windowWidth < 768 ? "14px" : "20px",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
+                      color: "#686868",
                     }}
                   >
                     ติดต่อโฆษณา : 082 479 4746{" "}
@@ -306,7 +317,8 @@ function FooterComponent() {
                   />
                   <p
                     style={{
-                      fontSize: windowWidth < 768 ? "14px" : "20px",
+                      fontSize: windowWidth < 768 ? "12px" : "16px",
+                      color: "#686868",
                     }}
                   >
                     ads2thai@gmail.com
@@ -338,7 +350,7 @@ function FooterComponent() {
           rel="noopener noreferrer"
           style={{ color: "#FFF6AE", textDecoration: "none" }}
         >
-          {"  "} Syganya.P
+          {"  "} Suganya.P
         </a>
       </div>
     </div>

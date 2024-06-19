@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 const multer = require("multer");
 const path = require("path");
-
+const requestIp = require('request-ip');
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger_output.json");
 
@@ -46,6 +46,7 @@ dotenv.config();
 
 const app = express();
 
+
 // Middleware สำหรับตรวจสอบความถูกต้องของ API key
 const validateApiKey = (req, res, next) => {
   const apiKey = req.headers["api-key"]; // รับค่า API key จาก header
@@ -56,7 +57,7 @@ const validateApiKey = (req, res, next) => {
 
   next(); // ให้ middleware ถัดไปดำเนินการต่อ
 };
-
+app.use(requestIp.mw());
 app.use(cors());
 app.use(bodyParser.json({ limit: "5mb" }));
 app.use(bodyParser.urlencoded({ limit: "5mb", extended: true }));

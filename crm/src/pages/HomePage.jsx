@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ApiUrl from "../utils/ApiUrl";
 import { ApiRouter } from "../utils/ApiRouter";
+import CompanyPage from "../pages/Company/CompanyPage";
 
 function HomePage() {
   const [file, setFile] = useState(null);
@@ -29,8 +30,7 @@ function HomePage() {
   return (
     <>
       <div>
-        <input type="file" onChange={handleFileChange} />
-        <button onClick={handleUpload}>Upload</button>
+      <CompanyPage/>
       </div>
     </>
   );

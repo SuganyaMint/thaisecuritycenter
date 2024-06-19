@@ -1,0 +1,73 @@
+export const ApiRouter = {
+  // login admin
+  login: "/api/v1/member/login",
+  authen: "/api/v1/member/login/authen",
+
+  users: "/api/users",
+  register: "/api/users/register",
+
+  //banner
+  Banner: "/api/banner/",
+  BannerImage: "/api/banner/image",
+  UpdateBannerImage: "/api/banner/update/image/",
+
+  //banner
+  SubBanner: "/api/subbanner/",
+  SubBannerImage: "/api/subbanner/image",
+  SubUpdateBannerImage: "/api/subbanner/update/image/",
+
+  //Contact
+  ContactMe: "/api/v1/contact/",
+  ContactInterested: "/api/v1/contact_in/",
+  //Member
+  Member: "/api/v1/member/register/",
+  ChangeTypeMember: "/api/v1/member/register/type/",
+
+  //article
+  Article: "/api/v1/article/",
+  ArticleImage: "/api/v1/article/image",
+
+  //company
+  Company: "/api/v1/company/",
+  CompanyImage: "/api/v1/company/image",
+  CompanyImageComID: "/api/v1/company/imageComID/company/",
+  ChangeStatusCompany: "/api/v1/company/status/",
+  ChangeStartCompany: "/api/v1/company/star/",
+  ChangeHireCompany: "/api/v1/company/hire/",
+  CompanyLogo: "/api/v1/company/image/logo",
+  CompanyUpdateMap: "/api/v1/company/map/",
+  CompanyUpdateDescription: "/api/v1/company/desc/",
+  CompanyByMemberId: "/api/v1/company/member/",
+  CompanyByCompanyId: "/api/v1/company/company/",
+  CompanyUpdateImage: "/api/v1/company/image/",
+  CompanyUpdateOneImage: "/api/v1/company/image/one/",
+  CompanyUpdateDetail: "/api/v1/company/detail/",
+
+  //Address
+  Pronvinces: "/api/v1/address/pronvinces",
+  Amphoe: "/api/v1/address/amphoe/",
+  Tambon: "/api/v1/address/tambon/",
+  getDetailAddress: "/api/v1/address/all/detail/by_tambon/",
+
+  //logo
+  Logo: "/api/v1/logo/",
+  LogoImage: "/api/v1/logo/image",
+
+  //promotion
+  Hotpack: "/api/v1/hotpack/",
+  HotpackImage: "/api/v1/hotpack/image",
+  HotpackItem: "/api/v1/hotpack/items",
+  UpdateStatusHotPack: "/api/v1/hotpack/items/updatestatus",
+  EditAllItem: "/api/v1/hotpack/items/edit/all",
+  UpdatePicureLevelHotpack: "/api/v1/hotpack/picture/",
+  //level promotion
+  LevelPromotion: "/api/v1/levelpromotion", //for get , put ,detete , post
+  LevelPromotionImage: "/api/v1/levelpromotion/image", //for post image
+  UpdateStatusLevelPromotion: "/api/v1/levelpromotion/status/",
+  UpdateLockLevelPromotion: "/api/v1/levelpromotion/lock/",
+  UpdatePicureLevelPromotion: "/api/v1/levelpromotion/picture/",
+
+  // news-event
+  NewsEvent: "/api/v1/news/",
+  NewsEventImage: "/api/v1/news/image",
+};
